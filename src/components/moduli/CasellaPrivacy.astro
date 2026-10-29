@@ -1,0 +1,23 @@
+---
+import { messaggi } from '../../lib/moduli';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="campo campo--casella">
+  <input
+    id={id}
+    name="privacy"
+    type="checkbox"
+    value="letta"
+    required
+    data-messaggio={messaggi.privacy}
+    aria-describedby={`${id}-errore`}
+  />
+  <label for={id}>Ho letto l'<a href="/privacy">informativa privacy</a></label>
+  <p id={`${id}-errore`} class="campo__errore" hidden></p>
+</div>

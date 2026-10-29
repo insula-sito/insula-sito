@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base titolo="Iscrizione ricevuta" noindex>
+  <section class="intestazione conferma" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Iscrizione ricevuta.</h1>
+        <p>Riceverai la Nota all'indirizzo che hai indicato. Il primo numero è in preparazione.</p>
+        <p class="ritorno"><a class="link-interfaccia" href="/">Torna alla home</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .conferma { padding-bottom: var(--sezione); }
+  .ritorno { margin-top: var(--s-4); }
+</style>

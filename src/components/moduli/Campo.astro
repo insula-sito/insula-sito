@@ -1,0 +1,36 @@
+---
+// Campo di testo, email, telefono o area di testo, con etichetta, aiuto ed errore.
+interface Props {
+  id: string;
+  nome: string;
+  etichetta: string;
+  tipo?: 'text' | 'email' | 'tel' | 'textarea';
+  obbligatorio?: boolean;
+  autocomplete?: string;
+  aiuto?: string;
+}
+
+const { id, nome, etichetta, tipo = 'text', obbligatorio = false, autocomplete, aiuto } = Astro.props;
+const descrizione = [aiuto && `${id}-aiuto`, `${id}-errore`].filter(Boolean).join(' ');
+---
+
+<div class="campo">
+  <label for={id}>
+    {etichetta}{!obbligatorio && <span class="campo__facoltativo"> (facoltativo)</span>}
+  </label>
+  {tipo === 'textarea' ? (
+    <textarea id={id} name={nome} rows="5" required={obbligatorio} aria-describedby={descrizione} />
+  ) : (
+    <input
+      id={id}
+      name={nome}
+      type={tipo}
+      required={obbligatorio}
+      autocomplete={autocomplete}
+      aria-describedby={descrizione}
+      spellcheck={tipo === 'email' ? 'false' : undefined}
+    />
+  )}
+  {aiuto && <p id={`${id}-aiuto`} class="campo__aiuto">{aiuto}</p>}
+  <p id={`${id}-errore`} class="campo__errore" hidden></p>
+</div>

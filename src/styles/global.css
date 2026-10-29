@@ -211,3 +211,57 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .elenco-filetti li:last-child { border-bottom: var(--filetto); }
 .elenco-filetti strong { color: var(--portone); }
+
+/* Moduli */
+.modulo {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 34rem;
+  font-family: var(--font-interfaccia);
+}
+.campo { display: grid; gap: var(--s-1); }
+.campo label,
+.campo legend {
+  font-size: var(--t-16);
+  font-weight: 500;
+  color: var(--basalto);
+}
+.campo__facoltativo { font-weight: 400; color: var(--peperino); }
+.campo input:not([type='checkbox'], [type='radio']),
+.campo select,
+.campo textarea {
+  width: 100%;
+  font: inherit;
+  font-size: var(--t-19);
+  color: var(--basalto);
+  background: transparent;
+  border: 1px solid var(--peperino);
+  border-radius: var(--raggio);
+  padding: 0.55em 0.7em;
+}
+.campo textarea { resize: vertical; min-height: 8em; line-height: 1.5; }
+.campo [aria-invalid='true'] { border: 2px solid var(--basalto); }
+.campo__aiuto { font-size: var(--t-14); color: var(--peperino); }
+.campo__errore {
+  font-size: var(--t-16);
+  font-weight: 500;
+  color: var(--portone);
+  border-left: 3px solid var(--portone);
+  padding-left: var(--s-1);
+}
+.campo--casella {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: var(--s-1);
+}
+.campo--casella label { font-weight: 400; }
+.campo--casella .campo__errore { grid-column: 1 / -1; }
+.campo input[type='checkbox'],
+.campo input[type='radio'] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--portone);
+}
+.modulo .pulsante { justify-self: start; cursor: pointer; }
+.esca { display: none; }

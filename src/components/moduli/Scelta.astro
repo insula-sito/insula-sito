@@ -1,0 +1,23 @@
+---
+// Scelta singola da un elenco, con riga vuota iniziale.
+interface Props {
+  id: string;
+  nome: string;
+  etichetta: string;
+  opzioni: string[];
+  obbligatorio?: boolean;
+}
+
+const { id, nome, etichetta, opzioni, obbligatorio = false } = Astro.props;
+---
+
+<div class="campo">
+  <label for={id}>
+    {etichetta}{!obbligatorio && <span class="campo__facoltativo"> (facoltativo)</span>}
+  </label>
+  <select id={id} name={nome} required={obbligatorio} aria-describedby={`${id}-errore`}>
+    <option value=""></option>
+    {opzioni.map((o) => <option value={o}>{o}</option>)}
+  </select>
+  <p id={`${id}-errore`} class="campo__errore" hidden></p>
+</div>

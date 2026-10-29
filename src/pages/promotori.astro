@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import AvvisoSviluppo from '../components/AvvisoSviluppo.astro';
+import { sito, daDefinire } from '../config/sito';
+
+const relatori = (await getCollection('persone')).sort((a, b) => a.data.nome.localeCompare(b.data.nome, 'it'));
+---
+
+<Base titolo="Promotori">
+  <AvvisoSviluppo>Testo da far approvare al promotore prima della pubblicazione.</AvvisoSviluppo>
+
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Chi promuove il circolo</h1>
+        <p>
+          {sito.nome} è promossa da {sito.studio.nome}, studio legale con sede a Roma. Lo studio si
+          occupa di diritto immobiliare, locazioni, esecuzioni immobiliari e aste, recupero crediti.
+        </p>
+        <p>
+          Lo studio contribuisce al circolo con l'esperienza dei suoi avvocati, che partecipano ai
+          tavoli come relatori accanto a professionisti esterni. Le attività del circolo non
+          comprendono prestazioni professionali.
+        </p>
+        <p class="sito-studio">
+          {daDefinire(sito.studio.url) ? (
+            <span class="link-interfaccia">Sito dello studio ({sito.studio.url})</span>
+          ) : (
+            <a class="link-interfaccia" href={sito.studio.url} target="_blank" rel="noopener">
+              Sito dello studio<span class="solo-lettori"> (si apre in una nuova scheda)</span>
+            </a>
+          )}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {relatori.length > 0 && (
+    <section class="sezione relatori" aria-labelledby="titolo-relatori">
+      <div class="contenitore griglia">
+        <div class="col-principale">
+          <h2 id="titolo-relatori">Relatori</h2>
+          <ul class="elenco-relatori">
+            {relatori.map(({ data: p }) => (
+              <li>
+                <h3>{p.nome}</h3>
+                <p class="ruolo">{p.ruolo}, {p.organizzazione}</p>
+                <p>{p.bio}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .intestazione { padding-bottom: var(--sezione); }
+  .sito-studio { margin-top: var(--s-4); }
+  .relatori { padding-top: 0; }
+  .elenco-relatori { margin-top: var(--s-4); }
+  .elenco-relatori li { border-top: var(--filetto); padding-block: var(--s-3); }
+  .ruolo {
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-16);
+    color: var(--peperino);
+    margin-block: var(--s-1);
+  }
+</style>

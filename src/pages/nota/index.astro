@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Campo from '../../components/moduli/Campo.astro';
+import Scelta from '../../components/moduli/Scelta.astro';
+import CasellaPrivacy from '../../components/moduli/CasellaPrivacy.astro';
+import Esca from '../../components/moduli/Esca.astro';
+import { ruoli } from '../../lib/moduli';
+import { dataEstesa } from '../../lib/incontri';
+
+const numeri = (await getCollection('note')).sort((a, b) => b.data.numero - a.data.numero);
+---
+
+<Base titolo="La Nota">
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">La Nota</h1>
+        <p>
+          Una volta al mese, una questione che riguarda chi possiede immobili a reddito a Roma:
+          l'analisi essenziale e un dato da tenere a mente. Si legge in cinque minuti. Non contiene
+          promozioni.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione iscrizione" aria-label="Iscrizione">
+    <div class="contenitore griglia">
+      <form
+        class="modulo col-principale"
+        name="nota"
+        method="POST"
+        action="/nota/iscritto/"
+        data-netlify="true"
+        netlify-honeypot="esca"
+        data-valida
+      >
+        <input type="hidden" name="form-name" value="nota" />
+        <Esca />
+        <Campo id="nota-email" nome="email" etichetta="Email" tipo="email" obbligatorio autocomplete="email" />
+        <Campo id="nota-nome" nome="nome" etichetta="Nome" autocomplete="name" />
+        <Scelta id="nota-ruolo" nome="ruolo" etichetta="Ruolo" opzioni={ruoli} />
+        <CasellaPrivacy id="nota-privacy" />
+        <button class="pulsante" type="submit">Iscriviti alla Nota</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-archivio">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-archivio">Numeri usciti</h2>
+        {numeri.length > 0 ? (
+          <ul class="archivio">
+            {numeri.map((n) => (
+              <li>
+                <p class="archivio__dati">N. {n.data.numero}, {dataEstesa(n.data.data)}</p>
+                <h3><a href={`/nota/${n.id}`}>{n.data.titolo}</a></h3>
+                <p>{n.data.sintesi}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="archivio">Il primo numero è in preparazione.</p>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import '../../scripts/validazione';
+</script>
+
+<style>
+  .iscrizione { padding-top: 0; }
+  .archivio { margin-top: var(--s-4); }
+  .archivio li { border-top: var(--filetto); padding-block: var(--s-3); }
+  .archivio li > * + * { margin-top: var(--s-1); }
+  .archivio__dati {
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-14);
+    color: var(--peperino);
+  }
+</style>

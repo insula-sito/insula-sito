@@ -1,0 +1,54 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { dataEstesa } from '../../lib/incontri';
+
+export async function getStaticPaths() {
+  const numeri = await getCollection('note');
+  return numeri.map((nota) => ({ params: { id: nota.id }, props: { nota } }));
+}
+
+interface Props {
+  nota: CollectionEntry<'note'>;
+}
+
+const { nota } = Astro.props;
+const { Content } = await render(nota);
+---
+
+<Base titolo={nota.data.titolo} descrizione={nota.data.sintesi}>
+  <article>
+    <header class="intestazione">
+      <div class="contenitore griglia">
+        <div class="col-principale">
+          <h1>{nota.data.titolo}</h1>
+          <p class="sintesi">{nota.data.sintesi}</p>
+        </div>
+        <dl class="col-margine margine metadati">
+          <div>
+            <dt>Numero</dt>
+            <dd>{nota.data.numero}</dd>
+          </div>
+          <div>
+            <dt>Data</dt>
+            <dd>{dataEstesa(nota.data.data)}</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+    <div class="sezione corpo">
+      <div class="contenitore griglia">
+        <div class="col-principale prosa">
+          <Content />
+          <p class="ritorno"><a class="link-interfaccia" href="/nota">La Nota</a></p>
+        </div>
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  h1 { font-size: var(--t-44); }
+  .corpo { padding-top: 0; }
+  .ritorno { margin-top: var(--s-5); }
+</style>

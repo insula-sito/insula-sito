@@ -14,9 +14,11 @@ interface Props {
   /** Nome della pagina interna; assente nella home. */
   titolo?: string;
   descrizione?: string;
+  /** Pagine di conferma: fuori dagli indici dei motori di ricerca. */
+  noindex?: boolean;
 }
 
-const { titolo, descrizione = sito.descrizione } = Astro.props;
+const { titolo, descrizione = sito.descrizione, noindex = false } = Astro.props;
 const titoloPagina = titolo ? `${titolo} — ${sito.nome}` : `${sito.nome} — ${sito.sottotitolo}`;
 ---
 
@@ -27,6 +29,7 @@ const titoloPagina = titolo ? `${titolo} — ${sito.nome}` : `${sito.nome} — $
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titoloPagina}</title>
     <meta name="description" content={descrizione} />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#1F3A32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>

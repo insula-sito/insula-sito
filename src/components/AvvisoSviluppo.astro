@@ -1,0 +1,21 @@
+---
+// Avviso visibile solo in sviluppo (`npm run dev`), mai nella build di produzione.
+---
+
+{import.meta.env.DEV && (
+  <div class="avviso-sviluppo contenitore">
+    <p><slot /></p>
+  </div>
+)}
+
+<style>
+  .avviso-sviluppo p {
+    max-width: none;
+    margin-top: var(--s-3);
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-14);
+    border: 1px dashed var(--peperino);
+    border-radius: var(--raggio);
+    padding: var(--s-1) var(--s-2);
+  }
+</style>
