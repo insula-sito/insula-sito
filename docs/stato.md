@@ -24,6 +24,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Privacy (`/privacy`): bozza strutturata con le sezioni di `testi.md`, segnaposto per titolare, basi giuridiche, conservazione, destinatari, diritti e contatti; in sviluppo l'avviso «Bozza: testo da completare…»
 - 404: fondo portone, pulsante d'invito, link alla home e un frammento fermo della pianta (solo il cortile)
 - Home, dopo la revisione degli screenshot (29 ottobre): la sezione del promotore ha il titolo visibile «Chi promuove il circolo» e il link «Promotori» (aggiornato anche `docs/testi.md`); su mobile la pianta è ridotta a circa due terzi della larghezza
+- Decisioni del 29 ottobre: H1 della privacy «Informativa privacy» (nel footer resta «Privacy»); nella 404 prima il pulsante d'invito, poi la home
+- Verifica automatica di accessibilità (29 ottobre), con axe-core 4.13.0 via Playwright e Chrome, regole WCAG 2.0/2.1/2.2 A e AA più le buone pratiche: tutte le pagine di produzione, desktop 1440px e iPhone 14, i moduli anche con gli errori visibili; in sviluppo anche la pagina dell'incontro in bozza. Zero violazioni. Contrasto non testuale misurato a parte: bordi dei campi 5,0:1, focus minimo 5,0:1 (ottone su portone), caselle spuntate 10,4:1. Giro con Tab su home, invito e 404: tutti gli elementi raggiunti hanno il contorno di focus
 - Screenshot di controllo della home con Playwright (desktop a 1440px, iPhone 14 a densità 2) in `screenshot/`, esclusa da git
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
@@ -38,7 +40,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - [x] Promotori
 - [x] Richiedi un invito: modulo Netlify, validazione, precompilazione da `?incontro=`, conferma
 - [x] Privacy (struttura con segnaposto) e 404
-- [ ] Controllo finale: mobile reale, tastiera, contrasti, `npm run build`
+- [x] Controllo finale automatico: contrasti, accessibilità, tastiera, `npm run build`
+- [ ] Prova su un telefono vero (dopo il deploy)
 
 ## Bloccanti per la pubblicazione (non per lo sviluppo)
 - Nome definitivo, con verifica di dominio e marchio
@@ -65,15 +68,15 @@ Ultimo aggiornamento: 29 ottobre 2026
 - I campi facoltativi sono segnati con «(facoltativo)» nell'etichetta; i menu a scelta partono da una riga vuota.
 - L'archivio mostra per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con un link «La Nota».
 - Il campo esca, invisibile, ha l'etichetta «Non compilare questo campo», letta solo dai bot.
-- Privacy: `testi.md` non dà un H1; ho usato «Privacy», come nel footer. La sezione sui diritti riporta la dicitura di `testi.md` seguita da un segnaposto per il testo.
-- 404: `testi.md` elenca «Home; Richiedi un invito». Ho messo prima il pulsante d'invito, che è l'azione principale, e poi il link alla home.
+- Privacy: la sezione sui diritti riporta la dicitura di `testi.md` seguita da un segnaposto per il testo.
+- Nella pagina di un incontro concluso il link alla Nota dice «La Nota»: `testi.md` chiede solo «un link alla Nota».
 
 ## Note tecniche
 - I moduli Netlify non inviano dati in locale: si provano dopo il primo deploy.
 - `site` in `astro.config.mjs` va impostato quando il dominio è definito.
 - La build segnala che le collections `note` e `persone` sono vuote: è previsto.
 - Netlify riconosce i moduli dall'HTML generato (`data-netlify`, `form-name` nascosto); l'invio vero si prova dopo il primo deploy.
-- Nella pagina di un incontro concluso il link alla Nota dice «La Nota»: `testi.md` chiede solo «un link alla Nota».
+- La casella non spuntata usa il bordo nativo del browser: in Chrome è circa 3,9:1 su calce (sopra il 3:1 richiesto). Su Safari e Firefox reali va guardata dopo il deploy.
 
 ## Prossimo passo
-Controllo finale della v1: prova su un telefono vero, giro completo con la tastiera, verifica dei contrasti (anche del filetto e dei bordi dei campi), `npm run build`. Poi decidere i punti in «Scelte da confermare» e preparare il deploy su Netlify (account, repository GitHub).
+Decidere i punti rimasti in «Scelte da confermare», poi preparare il deploy su Netlify (account, repository GitHub) e, dopo il deploy, provare i moduli e il sito su un telefono vero.
