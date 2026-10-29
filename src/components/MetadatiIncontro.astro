@@ -1,0 +1,30 @@
+---
+import { etichettaFormato, dataEstesa, type Incontro } from '../lib/incontri';
+
+interface Props {
+  incontro: Incontro;
+  /** Pagina del singolo incontro: formato in testa e posti in fondo, come da docs/testi.md. */
+  completo?: boolean;
+  class?: string;
+}
+
+const { incontro, completo = false, class: classe } = Astro.props;
+const { data } = incontro;
+const formato = { etichetta: 'Formato', valore: etichettaFormato[data.formato] };
+const voci = [
+  ...(completo ? [formato] : []),
+  { etichetta: 'Data', valore: dataEstesa(data.data) },
+  { etichetta: 'Ora', valore: data.ora ?? '[DA DEFINIRE: ora]' },
+  { etichetta: 'Luogo', valore: data.luogo ?? '[DA DEFINIRE: luogo]' },
+  ...(completo ? [{ etichetta: 'Posti', valore: String(data.posti ?? '[DA DEFINIRE: posti]') }] : [formato]),
+];
+---
+
+<dl class:list={['margine', 'metadati', classe]}>
+  {voci.map((v) => (
+    <div>
+      <dt>{v.etichetta}</dt>
+      <dd>{v.valore}</dd>
+    </div>
+  ))}
+</dl>

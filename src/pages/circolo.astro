@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import { sito } from '../config/sito';
+
+const regole = [
+  {
+    regola: 'Una domanda per tavolo.',
+    testo: 'La scegliamo perché ha conseguenze economiche concrete per chi siede al tavolo.',
+  },
+  {
+    regola: 'Pochi partecipanti, scelti per ruolo.',
+    testo:
+      'Proprietari e consulenti insieme: le decisioni migliori nascono quando chi decide e chi consiglia ragionano sugli stessi fatti.',
+  },
+  {
+    regola: 'Regola di Chatham House.',
+    testo: 'Ciò che si dice al tavolo si può usare, non attribuire.',
+  },
+  {
+    regola: 'Dai tavoli alla Nota.',
+    testo: 'Ciò che emerge dai tavoli, senza nomi, alimenta la Nota.',
+  },
+];
+---
+
+<Base titolo="Il circolo">
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Perché esiste {sito.nome}</h1>
+        <p>
+          A Roma molti patrimoni immobiliari a reddito sono in mano a famiglie, società di famiglia e
+          investitori privati. Le decisioni che ne determinano il rendimento (rinnovare o liberare,
+          vendere o dividere, comprare in asta o sul mercato) dipendono spesso da questioni giuridiche
+          che emergono quando sono già diventate costose.
+        </p>
+        <p>
+          {sito.nome} riunisce poche persone per volta attorno a una domanda precisa, insieme a chi
+          quelle questioni le affronta ogni giorno: avvocati, commercialisti, notai, gestori. Lo scopo
+          è arrivare alle decisioni prima che diventino urgenti, con più informazioni e con il
+          confronto di chi ha già affrontato lo stesso problema.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-funziona">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-funziona">Come funziona</h2>
+        <ul class="elenco-filetti blocco">
+          {regole.map((r) => (
+            <li>
+              <p><strong>{r.regola}</strong> {r.testo}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-non-facciamo">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-non-facciamo">Cosa non facciamo</h2>
+        <p class="blocco">
+          Non vendiamo servizi e non raccogliamo casi. Ai tavoli non si presentano offerte
+          commerciali. Chi partecipa torna se ne è valsa la pena.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione fondo-portone" aria-labelledby="titolo-partecipare">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-partecipare">Chi può partecipare</h2>
+        <p class="blocco">
+          Proprietari di immobili a reddito a Roma, i loro consulenti e chi gestisce immobili locati
+          per loro conto. La partecipazione è su invito ed è {sito.partecipazione}.
+        </p>
+        <div class="azioni blocco">
+          <a class="pulsante" href="/invito">Richiedi un invito</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .blocco { margin-top: var(--s-4); }
+</style>

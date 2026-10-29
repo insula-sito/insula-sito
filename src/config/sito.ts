@@ -9,6 +9,8 @@ export const sito = {
   url: '[DA DEFINIRE: URL del sito]',
   email: '[DA DEFINIRE: email del circolo]',
   sede: '[DA DEFINIRE: sede]',
+  formatoSedeOspite: '[DA DEFINIRE: formato e sede]',
+  partecipazione: '[DA DEFINIRE: gratuita oppure con quota associativa]',
   datiLegali: "[DA DEFINIRE: denominazione legale e codice fiscale dell'associazione]",
   tempiRisposta: '[DA DEFINIRE: numero]',
   studio: {

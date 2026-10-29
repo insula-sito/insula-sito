@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import MetadatiIncontro from '../../components/MetadatiIncontro.astro';
+import { sito } from '../../config/sito';
+import { incontriInProgramma, incontriConclusi, type Incontro } from '../../lib/incontri';
+
+const inProgramma = await incontriInProgramma();
+const conclusi = await incontriConclusi();
+
+const formati = [
+  {
+    titolo: 'Tavolo riservato',
+    margine: `Da 10 a 14 partecipanti. Circa due ore. ${sito.sede}. Su invito.`,
+  },
+  {
+    titolo: 'Incontro con ospite',
+    margine: `Due volte l'anno. ${sito.formatoSedeOspite}. Su invito.`,
+  },
+];
+
+const elenchi: { id: string; titolo: string; voci: Incontro[] }[] = [
+  { id: 'in-programma', titolo: 'In programma', voci: inProgramma },
+  ...(conclusi.length > 0 ? [{ id: 'conclusi', titolo: 'Conclusi', voci: conclusi }] : []),
+];
+---
+
+<Base titolo="Incontri">
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Incontri</h1>
+        <p>
+          Due formati: i tavoli riservati, su una domanda alla volta, e gli incontri con ospite, due
+          volte l'anno.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" aria-label="Formati">
+    <div class="contenitore">
+      <ul class="formati">
+        {formati.map((f) => (
+          <li class="griglia">
+            <h2 class="titoletto col-principale">{f.titolo}</h2>
+            <p class="col-margine margine">{f.margine}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {elenchi.map((elenco) => (
+    <section class="sezione" aria-labelledby={`titolo-${elenco.id}`}>
+      <div class="contenitore">
+        <h2 id={`titolo-${elenco.id}`}>{elenco.titolo}</h2>
+        {elenco.voci.length > 0 ? (
+          <ul class="incontri">
+            {elenco.voci.map((incontro) => (
+              <li class="griglia">
+                <div class="col-principale incontro">
+                  {incontro.data.stato === 'bozza' && <p class="etichetta-bozza">Bozza</p>}
+                  <h3>
+                    <a href={`/incontri/${incontro.id}`}>{incontro.data.titolo}</a>
+                  </h3>
+                  <p>{incontro.data.sintesi}</p>
+                </div>
+                <MetadatiIncontro incontro={incontro} class="col-margine" />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="griglia vuoto">
+            <div class="col-principale">
+              <p>
+                Non ci sono ancora incontri in calendario. Le date dei primi tavoli arrivano prima a
+                chi ha richiesto un invito.
+              </p>
+              <div class="azioni">
+                <a class="pulsante" href="/invito">Richiedi un invito</a>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .formati li { border-top: var(--filetto); padding-top: var(--s-3); row-gap: var(--s-1); }
+  .formati li + li { margin-top: var(--s-4); }
+  .formati .margine { border-top: 0; padding-top: 0; }
+
+  .incontri, .vuoto { margin-top: var(--s-4); }
+  .incontri > li { border-top: var(--filetto); padding-block: var(--s-4); }
+  .incontri :global(.margine) { border-top: 0; padding-top: 0; }
+  .incontro > * + * { margin-top: var(--s-2); }
+  .vuoto .azioni { margin-top: var(--s-4); }
+</style>

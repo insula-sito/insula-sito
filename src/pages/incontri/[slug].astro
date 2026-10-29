@@ -1,0 +1,102 @@
+---
+import { getEntries, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import MetadatiIncontro from '../../components/MetadatiIncontro.astro';
+import { incontriPubblicabili, type Incontro } from '../../lib/incontri';
+
+export async function getStaticPaths() {
+  const incontri = await incontriPubblicabili();
+  return incontri.map((incontro) => ({ params: { slug: incontro.id }, props: { incontro } }));
+}
+
+interface Props {
+  incontro: Incontro;
+}
+
+const { incontro } = Astro.props;
+const { data } = incontro;
+const { Content } = await render(incontro);
+const relatori = data.relatori.length > 0 ? await getEntries(data.relatori) : [];
+const concluso = data.stato === 'concluso';
+---
+
+<Base titolo={data.titolo} descrizione={data.sintesi}>
+  <article>
+    <header class="intestazione">
+      <div class="contenitore griglia">
+        <div class="col-principale">
+          {data.stato === 'bozza' && <p class="etichetta-bozza bozza">Bozza</p>}
+          <h1>{data.titolo}</h1>
+          <p class="sintesi">{data.sintesi}</p>
+        </div>
+        <MetadatiIncontro incontro={incontro} completo class="col-margine metadati-pagina" />
+      </div>
+    </header>
+
+    <div class="sezione corpo">
+      <div class="contenitore griglia">
+        <div class="col-principale prosa">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    {relatori.length > 0 && (
+      <section class="sezione" aria-labelledby="titolo-relatori">
+        <div class="contenitore griglia">
+          <div class="col-principale">
+            <h2 id="titolo-relatori" class="titolo-relatori">Relatori</h2>
+            <ul class="relatori">
+              {relatori.map(({ data: p }) => (
+                <li>
+                  <h3>{p.nome}</h3>
+                  <p class="ruolo">{p.ruolo}, {p.organizzazione}</p>
+                  <p>{p.bio}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="sezione chiusura" aria-label={concluso ? 'Incontro concluso' : 'Partecipare'}>
+      <div class="contenitore griglia">
+        <div class="col-principale">
+          {concluso ? (
+            <>
+              <p>Incontro concluso.</p>
+              <p><a class="link-interfaccia" href="/nota">La Nota</a></p>
+            </>
+          ) : (
+            <div class="azioni">
+              <a class="pulsante" href={`/invito?incontro=${encodeURIComponent(incontro.id)}`}>
+                Richiedi un invito a questo tavolo
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .bozza { margin-bottom: var(--s-3); }
+  h1 { font-size: var(--t-44); }
+  .sintesi { margin-top: var(--s-4); }
+  @media (min-width: 60em) {
+    .metadati-pagina { align-self: start; margin-top: 0.6rem; }
+  }
+  .corpo, .chiusura { padding-top: 0; }
+  .chiusura p + p { margin-top: var(--s-2); }
+  .titolo-relatori { font-size: var(--t-32); }
+  .relatori { margin-top: var(--s-3); }
+  .relatori li { border-top: var(--filetto); padding-block: var(--s-3); }
+  .relatori .ruolo {
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-16);
+    color: var(--peperino);
+    margin-block: var(--s-1);
+  }
+</style>

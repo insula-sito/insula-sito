@@ -36,3 +36,11 @@ const formatoData = new Intl.DateTimeFormat('it-IT', {
 export function dataEstesa(data: Date | undefined): string {
   return data ? formatoData.format(data) : '[DA DEFINIRE: data]';
 }
+
+/** Incontri conclusi, dal più recente. */
+export async function incontriConclusi(): Promise<Incontro[]> {
+  const tutti = await incontriPubblicabili();
+  return tutti
+    .filter(({ data }) => data.stato === 'concluso')
+    .sort((a, b) => (b.data.data?.getTime() ?? 0) - (a.data.data?.getTime() ?? 0));
+}

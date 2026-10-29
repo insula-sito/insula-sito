@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Pianta from '../components/Pianta.astro';
 import { sito } from '../config/sito';
-import { incontriInProgramma, etichettaFormato, dataEstesa } from '../lib/incontri';
+import MetadatiIncontro from '../components/MetadatiIncontro.astro';
+import { incontriInProgramma } from '../lib/incontri';
 
 const [prossimo] = await incontriInProgramma();
 
@@ -162,24 +163,7 @@ const questioni = [
               </a>
             </div>
           </div>
-          <dl class="col-margine margine metadati incontro__margine">
-            <div>
-              <dt>Data</dt>
-              <dd>{dataEstesa(prossimo.data.data)}</dd>
-            </div>
-            <div>
-              <dt>Ora</dt>
-              <dd>{prossimo.data.ora ?? '[DA DEFINIRE: ora]'}</dd>
-            </div>
-            <div>
-              <dt>Luogo</dt>
-              <dd>{prossimo.data.luogo ?? '[DA DEFINIRE: luogo]'}</dd>
-            </div>
-            <div>
-              <dt>Formato</dt>
-              <dd>{etichettaFormato[prossimo.data.formato]}</dd>
-            </div>
-          </dl>
+          <MetadatiIncontro incontro={prossimo} class="col-margine incontro__margine" />
         </>
       ) : (
         <div class="col-principale incontro">

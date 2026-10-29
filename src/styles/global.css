@@ -185,3 +185,29 @@ ul { margin: 0; padding: 0; list-style: none; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Pagine interne: intestazione e testo corrente */
+.intestazione { padding-block: var(--sezione) var(--s-5); }
+.intestazione h1 + * { margin-top: var(--s-4); }
+
+.prosa > * + * { margin-top: 1em; }
+.prosa h2 {
+  font-size: var(--t-32);
+  margin-top: var(--s-5);
+  margin-bottom: var(--s-1);
+}
+.prosa > h2:first-child { margin-top: 0; }
+
+.titoletto {
+  font-size: var(--t-24);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+/* Elenchi con filetti e frase d'apertura in grassetto */
+.elenco-filetti li {
+  border-top: var(--filetto);
+  padding-block: var(--s-3);
+}
+.elenco-filetti li:last-child { border-bottom: var(--filetto); }
+.elenco-filetti strong { color: var(--portone); }

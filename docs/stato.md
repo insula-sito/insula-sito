@@ -14,6 +14,9 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Helper `src/lib/incontri.ts`: bozze visibili solo in sviluppo, ordinamento per data, formato data in italiano
 - Layout base, header (su mobile: logo e pulsante in alto, voci sotto, senza JavaScript), footer, favicon
 - Home completa con i testi di `docs/testi.md` e la pianta SVG dell'insula (`src/components/Pianta.astro`), che si traccia in circa due secondi ed è già completa con reduced-motion
+- Pagina Il circolo (`/circolo`), con la quota di partecipazione da `sito.ts`
+- Incontri: elenco (`/incontri`) con formati e note a margine, «In programma» con stato vuoto, «Conclusi» solo se esiste un incontro concluso; pagina singola (`/incontri/[slug]`) con metadati a margine, «Perché conta» e «A chi è rivolto», relatori solo se presenti e pulsante oppure «Incontro concluso.» con il link alla Nota. Metadati condivisi in `src/components/MetadatiIncontro.astro`
+- Provati in sviluppo, con file temporanei poi cancellati, un incontro concluso con un relatore e la sezione «Conclusi». In produzione la pagina della bozza non viene generata e `/incontri` mostra lo stato vuoto
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -21,8 +24,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - [x] `src/config/sito.ts`, token in `src/styles/tokens.css`, font self-hosted
 - [x] Layout base, header, footer
 - [x] Home, con la pianta SVG nell'apertura
-- [ ] Il circolo
-- [ ] Incontri: elenco, pagina singola, stato vuoto (l'incontro di esempio in bozza c'è già)
+- [x] Il circolo
+- [x] Incontri: elenco, pagina singola, stato vuoto, incontro di esempio in bozza
 - [ ] La Nota: iscrizione, conferma, archivio vuoto
 - [ ] Promotori
 - [ ] Richiedi un invito: modulo Netlify, validazione, precompilazione da `?incontro=`, conferma
@@ -38,9 +41,9 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Account GitHub e Netlify, dominio, verifica di limiti e costi del piano Netlify
 
 ## Segnaposto aperti
-- `src/config/sito.ts`: URL del sito; email del circolo; sede; denominazione legale e codice fiscale dell'associazione; tempi di risposta (numero di giorni lavorativi); nome dello studio; URL dello studio
+- `src/config/sito.ts`: URL del sito; email del circolo; sede (usata in `/incontri`); formato e sede degli incontri con ospite; partecipazione gratuita oppure con quota associativa (usata in `/circolo`); denominazione legale e codice fiscale dell'associazione; tempi di risposta (numero di giorni lavorativi); nome dello studio; URL dello studio
 - `src/content/incontri/esempio-morosita.md`: data (assente), ora, luogo (solo bozza di sviluppo)
-- `src/lib/incontri.ts` e `src/pages/index.astro`: testo di ripiego `[DA DEFINIRE: data/ora/luogo]` mostrato quando un incontro in bozza non ha questi dati
+- `src/lib/incontri.ts` e `src/components/MetadatiIncontro.astro`: testo di ripiego `[DA DEFINIRE: data/ora/luogo/posti]` mostrato quando un incontro in bozza non ha questi dati
 
 ## Da verificare con il promotore
 - Home, «Le questioni»: «Un immobile va all'asta. Dove sta lo sconto, e cosa si compra insieme alle mura?» parla di acquisto in asta. Il vincolo deontologico riguarda le attività dello studio, ma conviene far confermare il testo.
@@ -54,7 +57,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - I moduli Netlify non inviano dati in locale: si provano dopo il primo deploy.
 - `site` in `astro.config.mjs` va impostato quando il dominio è definito.
 - La build segnala che le collections `note` e `persone` sono vuote: è previsto.
-- Le voci di navigazione puntano a pagine non ancora costruite e per ora danno 404.
+- La Nota, Promotori, Invito e Privacy non esistono ancora: i loro link danno 404.
+- Nella pagina di un incontro concluso il link alla Nota dice «La Nota»: `testi.md` chiede solo «un link alla Nota».
 
 ## Prossimo passo
-Pagine Il circolo e Incontri (elenco, pagina singola con «Perché conta» e «A chi è rivolto», stato vuoto, «Conclusi» solo se presenti).
+La Nota (iscrizione con modulo Netlify, conferma `/nota/iscritto`, archivio vuoto) e Promotori.
