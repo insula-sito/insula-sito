@@ -1,0 +1,187 @@
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--calce);
+  color: var(--basalto);
+  font-family: var(--font-testo);
+  font-size: var(--t-19);
+  line-height: var(--interlinea-testo);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 300;
+  line-height: var(--interlinea-titoli);
+  color: var(--portone);
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-64); }
+h2 { font-size: var(--t-44); }
+h3 { font-size: var(--t-24); font-weight: 400; line-height: 1.25; }
+
+p { margin: 0; max-width: var(--misura); }
+p + p { margin-top: 1em; }
+strong { font-weight: 600; }
+
+a {
+  color: var(--portone);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--portone);
+  outline-offset: 3px;
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+/* Fondo portone */
+.fondo-portone {
+  background: var(--portone);
+  color: var(--calce);
+}
+.fondo-portone h1,
+.fondo-portone h2,
+.fondo-portone h3,
+.fondo-portone a:not(.pulsante) { color: var(--calce); }
+.fondo-portone :focus-visible { outline-color: var(--ottone); }
+
+/* Contenitore e griglia a 12 colonne */
+.contenitore {
+  max-width: calc(var(--larghezza-max) + 2 * var(--margine-pagina));
+  margin-inline: auto;
+  padding-inline: var(--margine-pagina);
+}
+
+.griglia {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--s-4);
+}
+@media (min-width: 60em) {
+  .griglia {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--colonna-gap);
+  }
+  .col-principale { grid-column: 1 / span 7; }
+  .col-margine { grid-column: 9 / span 4; }
+  .col-larga { grid-column: 1 / -1; }
+}
+
+.sezione { padding-block: var(--sezione); }
+.sezione + .sezione:not(.fondo-portone) { padding-top: 0; }
+
+/* Nota a margine, come in un commentario */
+.margine {
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-16);
+  line-height: 1.5;
+  color: var(--peperino);
+  border-top: var(--filetto);
+  padding-top: var(--s-2);
+  max-width: 24em;
+}
+
+/* Metadati */
+.metadati {
+  margin: 0;
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-16);
+  line-height: 1.45;
+}
+.metadati div + div { margin-top: var(--s-2); }
+.metadati dt { color: var(--peperino); font-size: var(--t-14); }
+.metadati dd { margin: 0; color: var(--basalto); }
+
+/* Pulsanti */
+.pulsante {
+  display: inline-block;
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-16);
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  padding: 0.85em 1.35em;
+  border-radius: var(--raggio);
+  background: var(--portone);
+  color: var(--calce);
+  border: 1px solid var(--portone);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.pulsante:hover { background: var(--basalto); border-color: var(--basalto); }
+
+.fondo-portone .pulsante {
+  background: var(--ottone);
+  border-color: var(--ottone);
+  color: var(--portone);
+}
+.fondo-portone .pulsante:hover { background: var(--calce); border-color: var(--calce); }
+
+.link-interfaccia {
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-16);
+  font-weight: 500;
+}
+
+.azioni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+}
+
+.etichetta-bozza {
+  display: inline-block;
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-14);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--basalto);
+  border: 1px dashed var(--peperino);
+  border-radius: var(--raggio);
+  padding: 0.35em 0.6em;
+}
+
+.solo-lettori {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.salta {
+  position: absolute;
+  left: var(--s-2);
+  top: -10em;
+  z-index: 10;
+  background: var(--portone);
+  color: var(--calce);
+  font-family: var(--font-interfaccia);
+  font-size: var(--t-16);
+  padding: var(--s-1) var(--s-2);
+}
+.salta:focus { top: var(--s-2); color: var(--calce); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

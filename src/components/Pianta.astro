@@ -1,0 +1,95 @@
+---
+// Pianta del piano terreno di un'insula: disegno originale.
+// Isolato con cortile porticato e pozzo, botteghe sul fronte strada,
+// androne d'ingresso, due vani scala, appartamenti intorno al cortile.
+// Coordinate in unità del viewBox (360 × 450); la strada corre in basso.
+
+const gradini = (x0: number, x1: number) =>
+  [380, 388, 396, 404, 412, 420].map((y) => `M${x0} ${y} H${x1}`).join(' ');
+
+// Pilastri sul perimetro del portico, 14 unità all'interno del muro del cortile.
+const xs = [124, 152, 180, 208, 236];
+const ys = [164, 192, 220, 248, 276];
+const posizioni: [number, number][] = [];
+for (const x of xs) for (const y of ys) {
+  if (x === xs[0] || x === xs[4] || y === ys[0] || y === ys[4]) posizioni.push([x, y]);
+}
+const dPilastri = posizioni.map(([x, y]) => `M${x - 2} ${y - 2} h4 v4 h-4 Z`).join(' ');
+
+const tratti = [
+  {
+    ritardo: 0,
+    linee: [
+      // Muro perimetrale e fronte strada con le aperture di botteghe, scale e androne
+      'M10 430 V10 H350 V430',
+      'M10 430 H18 M52 430 H68 M102 430 H114 M132 430 H166 M194 430 H228 M246 430 H258 M292 430 H308 M342 430 H350',
+    ],
+  },
+  {
+    ritardo: 0.4,
+    linee: [
+      // Cortile, con le porte verso le stanze
+      'M160 290 H110 V264 M110 248 V194 M110 178 V150 H172 M188 150 H250 V178 M250 194 V248 M250 264 V290 H200',
+      // Fondo delle botteghe e tramezzi
+      'M10 360 H160 M200 360 H350 M60 360 V430 M110 360 V430 M250 360 V430 M300 360 V430',
+      // Androne
+      'M160 290 V310 M160 326 V430 M200 290 V310 M200 326 V430',
+      // Ali degli appartamenti
+      'M110 10 V150 M110 290 V360 M250 10 V150 M250 290 V360',
+      'M10 80 H70 M90 80 H110 M10 150 H70 M90 150 H110 M10 220 H70 M90 220 H110 M10 290 H70 M90 290 H110',
+      'M250 80 H270 M290 80 H350 M250 150 H270 M290 150 H350 M250 220 H270 M290 220 H350 M250 290 H270 M290 290 H350',
+      'M157 10 V110 M157 126 V150 M203 10 V110 M203 126 V150',
+    ],
+  },
+  {
+    ritardo: 0.8,
+    linee: [
+      // Vani scala a due rampe
+      `M135 374 V430 ${gradini(110, 135)} ${gradini(135, 160)}`,
+      `M225 374 V430 ${gradini(200, 225)} ${gradini(225, 250)}`,
+      // Portico e pozzo
+      dPilastri,
+      'M173 220 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0',
+    ],
+  },
+];
+---
+
+<svg class="pianta" viewBox="0 0 360 450" aria-hidden="true" focusable="false">
+  <path class="pianta__strada" d="M0 442 H360" pathLength="1" />
+  {tratti.map((gruppo) => (
+    <g style={`--ritardo: ${gruppo.ritardo}s`}>
+      {gruppo.linee.map((d) => <path d={d} pathLength="1" />)}
+    </g>
+  ))}
+</svg>
+
+<style>
+  .pianta {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: none;
+    stroke: var(--ottone);
+    stroke-width: 1.25;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+  .pianta path {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+    animation: traccia 1.2s cubic-bezier(0.4, 0, 0.2, 1) var(--ritardo, 0s) forwards;
+  }
+  .pianta__strada { opacity: 0.45; }
+
+  @keyframes traccia {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pianta path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

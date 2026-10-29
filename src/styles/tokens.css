@@ -1,0 +1,43 @@
+/* Token di design: valori da docs/brief.md, sezione 7. */
+:root {
+  /* Colori */
+  --calce: #ECEDE8;
+  --portone: #1F3A32;
+  --basalto: #2B2E2B;
+  --peperino: #62655E;
+  --ottone: #C2A060; /* solo su fondo portone */
+
+  /* Famiglie */
+  --font-testo: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-interfaccia: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Scala tipografica (px: 14, 16, 19, 24, 32, 44, 64) */
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-19: 1.1875rem;
+  --t-24: 1.5rem;
+  --t-32: clamp(1.625rem, 1.3rem + 1vw, 2rem);
+  --t-44: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --t-64: clamp(2.375rem, 1.6rem + 3.4vw, 4rem);
+
+  --interlinea-testo: 1.6;
+  --interlinea-titoli: 1.12;
+  --misura: 34em; /* circa 60–72 caratteri a 19px */
+
+  /* Impaginazione */
+  --larghezza-max: 1200px;
+  --margine-pagina: clamp(1.25rem, 5vw, 3rem);
+  --colonna-gap: clamp(1rem, 2.5vw, 2rem);
+
+  /* Spazi */
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2rem;
+  --s-5: 3rem;
+  --s-6: 4.5rem;
+  --sezione: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  --raggio: 2px;
+  --filetto: 1px solid color-mix(in srgb, var(--peperino) 45%, transparent);
+}

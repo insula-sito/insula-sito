@@ -1,0 +1,45 @@
+---
+import Logotipo from './Logotipo.astro';
+import { sito, daDefinire } from '../config/sito';
+---
+
+<footer class="piede">
+  <div class="contenitore griglia">
+    <div class="piede__circolo">
+      <Logotipo />
+      <p>{sito.sottotitolo}</p>
+      <p>
+        {daDefinire(sito.email) ? sito.email : <a href={`mailto:${sito.email}`}>{sito.email}</a>}
+      </p>
+    </div>
+    <ul class="piede__link">
+      <li><a href="/promotori">Promosso da {sito.studio.nome}</a></li>
+      <li><a href="/nota">Ricevi la Nota</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <p class="piede__legale">{sito.datiLegali}</p>
+  </div>
+</footer>
+
+<style>
+  .piede {
+    border-top: var(--filetto);
+    padding-block: var(--s-5);
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-16);
+    line-height: 1.5;
+    color: var(--peperino);
+  }
+  .piede p + p { margin-top: 0; }
+  .piede :global(.logotipo) { display: inline-block; margin-bottom: var(--s-1); }
+  .piede__link a,
+  .piede__circolo p a { color: var(--basalto); }
+  .piede__link li + li { margin-top: var(--s-1); }
+  .piede__legale { font-size: var(--t-14); }
+
+  @media (min-width: 60em) {
+    .piede__circolo { grid-column: 1 / span 5; }
+    .piede__link { grid-column: 7 / span 3; }
+    .piede__legale { grid-column: 1 / -1; }
+  }
+</style>

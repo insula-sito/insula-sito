@@ -1,0 +1,84 @@
+---
+import Logotipo from './Logotipo.astro';
+
+const voci = [
+  { href: '/circolo', etichetta: 'Il circolo' },
+  { href: '/incontri', etichetta: 'Incontri' },
+  { href: '/nota', etichetta: 'La Nota' },
+  { href: '/promotori', etichetta: 'Promotori' },
+];
+
+const percorso = Astro.url.pathname.replace(/\/$/, '') || '/';
+const attiva = (href: string) => percorso === href || percorso.startsWith(href + '/');
+---
+
+<header class="testata">
+  <div class="contenitore testata__riga">
+    <Logotipo />
+    <nav class="testata__nav" aria-label="Principale">
+      <ul>
+        {voci.map((v) => (
+          <li>
+            <a href={v.href} aria-current={attiva(v.href) ? 'page' : undefined}>{v.etichetta}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a class="pulsante testata__invito" href="/invito">Richiedi un invito</a>
+  </div>
+</header>
+
+<style>
+  .testata {
+    background: var(--calce);
+    border-bottom: var(--filetto);
+  }
+  .testata__riga {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'logo invito'
+      'nav nav';
+    align-items: center;
+    gap: var(--s-2) var(--s-3);
+    padding-block: var(--s-2);
+  }
+  .testata :global(.logotipo) { grid-area: logo; }
+  .testata__invito {
+    grid-area: invito;
+    font-size: var(--t-14);
+    padding: 0.7em 1em;
+  }
+  .testata__nav { grid-area: nav; }
+  .testata__nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-3);
+  }
+  .testata__nav a {
+    font-family: var(--font-interfaccia);
+    font-size: var(--t-16);
+    color: var(--basalto);
+    text-decoration: none;
+    padding-block: 0.35em;
+    display: inline-block;
+  }
+  .testata__nav a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; }
+  .testata__nav a[aria-current='page'] {
+    color: var(--portone);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+  }
+
+  @media (min-width: 52em) {
+    .testata__riga {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 'logo nav invito';
+      padding-block: var(--s-3);
+      gap: var(--s-4);
+    }
+    .testata__nav ul { justify-content: flex-end; gap: var(--s-4); }
+    .testata__invito { font-size: var(--t-16); padding: 0.75em 1.2em; }
+  }
+</style>

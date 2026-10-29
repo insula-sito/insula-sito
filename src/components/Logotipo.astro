@@ -1,0 +1,26 @@
+---
+import { sito } from '../config/sito';
+
+interface Props {
+  collegamento?: boolean;
+}
+
+const { collegamento = true } = Astro.props;
+const Tag = collegamento ? 'a' : 'span';
+---
+
+<Tag class="logotipo" href={collegamento ? '/' : undefined}>{sito.nome}</Tag>
+
+<style>
+  /* Unica eccezione alle maiuscole normali: il logotipo, spaziato come una targa d'ottone. */
+  .logotipo {
+    font-family: var(--font-testo);
+    font-weight: 600;
+    font-size: var(--t-16);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--portone);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+</style>

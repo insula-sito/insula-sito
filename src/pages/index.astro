@@ -1,0 +1,297 @@
+---
+import Base from '../layouts/Base.astro';
+import Pianta from '../components/Pianta.astro';
+import { sito } from '../config/sito';
+import { incontriInProgramma, etichettaFormato, dataEstesa } from '../lib/incontri';
+
+const [prossimo] = await incontriInProgramma();
+
+const modi = [
+  {
+    titolo: 'Tavoli riservati',
+    testo:
+      "Da dieci a quattordici persone, una sola domanda, due ore. Si discute di casi e decisioni reali con la regola di Chatham House: ciò che si sente si può usare, non attribuire.",
+  },
+  {
+    titolo: 'La Nota',
+    testo:
+      "Una volta al mese: una questione, l'analisi essenziale, un dato da tenere a mente. Si legge in cinque minuti.",
+  },
+  {
+    titolo: 'Incontri con ospite',
+    testo:
+      "Due volte l'anno, una conversazione con chi osserva il mercato immobiliare romano da un punto di vista diverso dal nostro.",
+  },
+];
+
+const pubblico = [
+  {
+    titolo: 'Proprietari',
+    testo:
+      'Famiglie, società immobiliari di famiglia, imprenditori e investitori che possiedono immobili residenziali o commerciali a Roma e li mettono a reddito.',
+  },
+  {
+    titolo: 'Consulenti',
+    testo:
+      'Commercialisti, private banker, notai e family office che accompagnano i proprietari nelle decisioni.',
+  },
+  {
+    titolo: 'Gestori',
+    testo: 'Property manager e amministratori che seguono immobili locati per conto dei proprietari.',
+  },
+];
+
+const questioni = [
+  {
+    caso: 'Un conduttore smette di pagare.',
+    domanda: "Quanto costa davvero, a Roma, riavere l'immobile? E cosa si poteva decidere prima?",
+  },
+  {
+    caso: 'Un conduttore commerciale è in difficoltà.',
+    domanda: 'Conviene rinegoziare, resistere o liberare?',
+  },
+  {
+    caso: "Un immobile va all'asta.",
+    domanda: 'Dove sta lo sconto, e cosa si compra insieme alle mura?',
+  },
+  {
+    caso: 'Un patrimonio passa agli eredi.',
+    domanda: 'Come evitare che una comunione blocchi le decisioni per anni?',
+  },
+  {
+    caso: 'Il condominio.',
+    domanda: "Quali debiti e quali delibere seguono l'immobile, e quanto pesano sul suo valore?",
+  },
+  {
+    caso: 'Le regole della rendita.',
+    domanda: 'Affitti brevi, fiscalità dei canoni, canoni non percepiti.',
+  },
+];
+---
+
+<Base>
+  <section class="apertura fondo-portone" aria-labelledby="titolo-apertura">
+    <div class="contenitore griglia apertura__griglia">
+      <div class="apertura__testo">
+        <h1 id="titolo-apertura">
+          Il rendimento di un immobile si decide anche in tribunale, in condominio e tra gli eredi.
+        </h1>
+        <p class="apertura__sottotitolo">
+          {sito.nome} è un circolo romano per chi possiede o consiglia patrimoni immobiliari a reddito.
+          Riunisce poche persone attorno a una domanda alla volta, insieme a chi quelle questioni le
+          affronta ogni giorno.
+        </p>
+        <div class="azioni">
+          <a class="pulsante" href="/invito">Richiedi un invito</a>
+          <a class="link-interfaccia" href="/nota">Ricevi la Nota</a>
+        </div>
+      </div>
+      <div class="apertura__pianta">
+        <Pianta />
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione modi" aria-labelledby="titolo-modi">
+    <div class="contenitore griglia">
+      <h2 id="titolo-modi" class="col-principale">Tre modi di partecipare</h2>
+      <ul class="col-larga modi__elenco">
+        {modi.map((m) => (
+          <li>
+            <h3>{m.titolo}</h3>
+            <p>{m.testo}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-pubblico">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-pubblico">Per chi decide su un patrimonio, e per chi lo consiglia</h2>
+        <ul class="voci">
+          {pubblico.map((p) => (
+            <li>
+              <h3>{p.titolo}</h3>
+              <p>{p.testo}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="col-margine margine margine--basso">
+        La partecipazione ai tavoli è su invito. Valutiamo ogni richiesta in base al ruolo e alle
+        questioni di interesse.
+      </p>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-questioni">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-questioni">Le questioni di cui ci occupiamo</h2>
+        <p class="introduzione">
+          Domande con conseguenze economiche concrete, che di solito si affrontano quando sono già
+          diventate urgenti.
+        </p>
+        <ul class="questioni">
+          {questioni.map((q) => (
+            <li>
+              <p><strong>{q.caso}</strong> {q.domanda}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" aria-labelledby="titolo-prossimo">
+    <div class="contenitore griglia">
+      <h2 id="titolo-prossimo" class="col-principale">Prossimo incontro</h2>
+      {prossimo ? (
+        <>
+          <div class="col-principale incontro">
+            {prossimo.data.stato === 'bozza' && <p class="etichetta-bozza">Bozza</p>}
+            <h3>
+              <a href={`/incontri/${prossimo.id}`}>{prossimo.data.titolo}</a>
+            </h3>
+            <p>{prossimo.data.sintesi}</p>
+            <div class="azioni">
+              <a class="pulsante" href={`/invito?incontro=${encodeURIComponent(prossimo.id)}`}>
+                Richiedi un invito a questo tavolo
+              </a>
+            </div>
+          </div>
+          <dl class="col-margine margine metadati incontro__margine">
+            <div>
+              <dt>Data</dt>
+              <dd>{dataEstesa(prossimo.data.data)}</dd>
+            </div>
+            <div>
+              <dt>Ora</dt>
+              <dd>{prossimo.data.ora ?? '[DA DEFINIRE: ora]'}</dd>
+            </div>
+            <div>
+              <dt>Luogo</dt>
+              <dd>{prossimo.data.luogo ?? '[DA DEFINIRE: luogo]'}</dd>
+            </div>
+            <div>
+              <dt>Formato</dt>
+              <dd>{etichettaFormato[prossimo.data.formato]}</dd>
+            </div>
+          </dl>
+        </>
+      ) : (
+        <div class="col-principale incontro">
+          <p>
+            Il calendario dei primi tavoli è in preparazione. Chi richiede un invito ora riceve le date
+            prima della pubblicazione.
+          </p>
+          <div class="azioni">
+            <a class="pulsante" href="/invito">Richiedi un invito</a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="sezione promotore" aria-labelledby="titolo-promotore">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-promotore" class="solo-lettori">Chi promuove il circolo</h2>
+        <p>
+          {sito.nome} è promossa da {sito.studio.nome}, studio legale romano che si occupa di diritto
+          immobiliare, locazioni, esecuzioni immobiliari e recupero crediti. I suoi avvocati partecipano
+          ai tavoli come relatori, accanto a professionisti esterni.
+        </p>
+        <p class="promotore__link">
+          <a class="link-interfaccia" href="/promotori">Chi promuove il circolo</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione fondo-portone chiusura" aria-labelledby="titolo-chiusura">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h2 id="titolo-chiusura">Partecipare</h2>
+        <p>
+          Indica il tuo ruolo e le questioni che ti interessano. Ti scriviamo quando c'è un tavolo
+          pertinente.
+        </p>
+        <div class="azioni">
+          <a class="pulsante" href="/invito">Richiedi un invito</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Apertura */
+  .apertura {
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
+  }
+  .apertura__griglia { align-items: center; row-gap: var(--s-5); }
+  .apertura__testo > * + * { margin-top: var(--s-4); }
+  .apertura__sottotitolo { font-size: var(--t-19); }
+  .apertura .azioni { margin-top: var(--s-5); }
+  .apertura__pianta {
+    width: min(100%, 22rem);
+    justify-self: start;
+  }
+  @media (min-width: 60em) {
+    .apertura__testo { grid-column: 1 / span 7; }
+    .apertura__pianta {
+      grid-column: 9 / span 4;
+      justify-self: end;
+      width: 100%;
+      max-width: 23rem;
+    }
+  }
+
+  /* Sezioni su calce */
+  h2 { margin-bottom: var(--s-1); }
+  .introduzione { margin-top: var(--s-3); }
+
+  .modi__elenco {
+    display: grid;
+    gap: var(--s-4) var(--colonna-gap);
+  }
+  .modi__elenco li,
+  .voci li {
+    border-top: var(--filetto);
+    padding-top: var(--s-3);
+  }
+  .modi__elenco h3,
+  .voci h3 { margin-bottom: var(--s-1); }
+  @media (min-width: 48em) {
+    .modi__elenco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .voci { margin-top: var(--s-5); }
+  .voci li + li { margin-top: var(--s-4); }
+  @media (min-width: 60em) {
+    .margine--basso { align-self: end; }
+  }
+
+  .questioni { margin-top: var(--s-5); }
+  .questioni li {
+    border-top: var(--filetto);
+    padding-block: var(--s-3);
+  }
+  .questioni li:last-child { border-bottom: var(--filetto); }
+  .questioni strong { color: var(--portone); }
+
+  .incontro > * + * { margin-top: var(--s-3); }
+  .incontro .azioni { margin-top: var(--s-4); }
+  .incontro h3 a { text-decoration-thickness: 1px; }
+  @media (min-width: 60em) {
+    .incontro__margine { grid-row: 2; }
+  }
+
+  .promotore__link { margin-top: var(--s-3); }
+
+  .chiusura .azioni { margin-top: var(--s-4); }
+  .chiusura h2 { margin-bottom: var(--s-3); }
+</style>
