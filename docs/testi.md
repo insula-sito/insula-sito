@@ -86,7 +86,9 @@ Pulsante: Richiedi un invito
 
 Testo: Insula è promossa da [DA DEFINIRE: nome dello studio], studio legale romano che si occupa di diritto immobiliare, locazioni, esecuzioni immobiliari e recupero crediti. I suoi avvocati partecipano ai tavoli come relatori, accanto a professionisti esterni.
 
-Link: Chi promuove il circolo (`/promotori`)
+Titolo: Chi promuove il circolo
+
+Link: Promotori (`/promotori`)
 
 ### Chiusura (fondo portone)
 

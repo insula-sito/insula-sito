@@ -6,3 +6,6 @@ dist/
 .DS_Store
 Thumbs.db
 npm-debug.log*
+
+# Screenshot di controllo
+screenshot/

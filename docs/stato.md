@@ -23,6 +23,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Richiedi un invito (`/invito`): modulo Netlify `invito` con tutti i campi di `testi.md`, testo d'aiuto sotto il messaggio, campo nascosto `incontro` precompilato da `?incontro=<slug>` solo se lo slug è di un incontro pubblicato (valori sconosciuti ignorati); conferma `/invito/ricevuto` con `noindex`
 - Privacy (`/privacy`): bozza strutturata con le sezioni di `testi.md`, segnaposto per titolare, basi giuridiche, conservazione, destinatari, diritti e contatti; in sviluppo l'avviso «Bozza: testo da completare…»
 - 404: fondo portone, pulsante d'invito, link alla home e un frammento fermo della pianta (solo il cortile)
+- Home, dopo la revisione degli screenshot (29 ottobre): la sezione del promotore ha il titolo visibile «Chi promuove il circolo» e il link «Promotori» (aggiornato anche `docs/testi.md`); su mobile la pianta è ridotta a circa due terzi della larghezza
+- Screenshot di controllo della home con Playwright (desktop a 1440px, iPhone 14 a densità 2) in `screenshot/`, esclusa da git
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -57,7 +59,6 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Home, «Le questioni»: «Un immobile va all'asta. Dove sta lo sconto, e cosa si compra insieme alle mura?» parla di acquisto in asta. Il vincolo deontologico riguarda le attività dello studio, ma conviene far confermare il testo.
 
 ## Scelte da confermare
-- La sezione «Chi promuove il circolo» della home ha un h2 visibile solo ai lettori di schermo, perché il testo non prevede un titolo e il link ha già quella dicitura.
 - Il link «Vai al contenuto», visibile solo con la tastiera, è un testo aggiunto per l'accessibilità.
 - Su desktop il titolo dell'apertura va su cinque righe (64px, colonna di 7/12) e non su tre come nel wireframe. Per arrivare a tre righe servirebbe un corpo più piccolo (44px) oppure una colonna più larga.
 - Nel modulo della Nota il messaggio per la privacy non confermata è quello di `testi.md` per l'invito («Per inviare la richiesta…»): `testi.md` non ne prevede uno per la Nota.

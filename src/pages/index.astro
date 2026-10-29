@@ -182,14 +182,14 @@ const questioni = [
   <section class="sezione promotore" aria-labelledby="titolo-promotore">
     <div class="contenitore griglia">
       <div class="col-principale">
-        <h2 id="titolo-promotore" class="solo-lettori">Chi promuove il circolo</h2>
+        <h2 id="titolo-promotore">Chi promuove il circolo</h2>
         <p>
           {sito.nome} è promossa da {sito.studio.nome}, studio legale romano che si occupa di diritto
           immobiliare, locazioni, esecuzioni immobiliari e recupero crediti. I suoi avvocati partecipano
           ai tavoli come relatori, accanto a professionisti esterni.
         </p>
         <p class="promotore__link">
-          <a class="link-interfaccia" href="/promotori">Chi promuove il circolo</a>
+          <a class="link-interfaccia" href="/promotori">Promotori</a>
         </p>
       </div>
     </div>
@@ -221,7 +221,7 @@ const questioni = [
   .apertura__sottotitolo { font-size: var(--t-19); }
   .apertura .azioni { margin-top: var(--s-5); }
   .apertura__pianta {
-    width: min(100%, 22rem);
+    width: min(66%, 16rem);
     justify-self: start;
   }
   @media (min-width: 60em) {
@@ -274,6 +274,7 @@ const questioni = [
     .incontro__margine { grid-row: 2; }
   }
 
+  .promotore h2 { margin-bottom: var(--s-3); }
   .promotore__link { margin-top: var(--s-3); }
 
   .chiusura .azioni { margin-top: var(--s-4); }
