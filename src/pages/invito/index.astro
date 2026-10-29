@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import Campo from '../../components/moduli/Campo.astro';
+import Scelta from '../../components/moduli/Scelta.astro';
+import CasellaPrivacy from '../../components/moduli/CasellaPrivacy.astro';
+import Esca from '../../components/moduli/Esca.astro';
+import { ruoli, tipiImmobili, questioni } from '../../lib/moduli';
+import { incontriPubblicabili } from '../../lib/incontri';
+import { sito } from '../../config/sito';
+
+// Solo gli slug di incontri pubblicati possono precompilare il campo nascosto.
+const slugValidi = (await incontriPubblicabili()).map((i) => i.id);
+---
+
+<Base titolo="Richiedi un invito">
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Richiedi un invito</h1>
+        <p>
+          I tavoli sono riservati a poche persone. Raccontaci chi sei e quali questioni ti
+          interessano: ti scriviamo quando c'è un incontro pertinente.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione richiesta" aria-label="Modulo di richiesta">
+    <div class="contenitore griglia">
+      <form
+        class="modulo col-principale"
+        name="invito"
+        method="POST"
+        action="/invito/ricevuto/"
+        data-netlify="true"
+        netlify-honeypot="esca"
+        data-valida
+        data-incontri={JSON.stringify(slugValidi)}
+      >
+        <input type="hidden" name="form-name" value="invito" />
+        <input type="hidden" name="incontro" value="" />
+        <Esca />
+        <Campo id="inv-nome" nome="nome" etichetta="Nome e cognome" obbligatorio autocomplete="name" />
+        <Campo id="inv-email" nome="email" etichetta="Email" tipo="email" obbligatorio autocomplete="email" />
+        <Campo id="inv-telefono" nome="telefono" etichetta="Telefono" tipo="tel" autocomplete="tel" />
+        <Scelta id="inv-ruolo" nome="ruolo" etichetta="Ruolo" opzioni={ruoli} obbligatorio />
+        <Campo id="inv-organizzazione" nome="organizzazione" etichetta="Organizzazione" autocomplete="organization" />
+        <Scelta id="inv-immobili" nome="immobili" etichetta="Tipo di immobili" opzioni={tipiImmobili} />
+        <fieldset class="campo gruppo">
+          <legend>Questioni di interesse <span class="campo__facoltativo">(facoltativo)</span></legend>
+          {questioni.map((q, i) => (
+            <div class="campo--casella">
+              <input id={`inv-questione-${i}`} type="checkbox" name="questioni" value={q} />
+              <label for={`inv-questione-${i}`}>{q}</label>
+            </div>
+          ))}
+        </fieldset>
+        <Campo id="inv-conosciuto" nome="conosciuto" etichetta={`Come hai conosciuto ${sito.nome}`} />
+        <Campo
+          id="inv-messaggio"
+          nome="messaggio"
+          etichetta="Messaggio"
+          tipo="textarea"
+          aiuto="Non inserire dettagli su controversie in corso: questo modulo serve solo a organizzare gli incontri."
+        />
+        <div class="caselle">
+          <CasellaPrivacy id="inv-privacy" />
+          <div class="campo campo--casella">
+            <input id="inv-nota" type="checkbox" name="nota" value="sì" />
+            <label for="inv-nota">Voglio ricevere anche la Nota</label>
+          </div>
+        </div>
+        <button class="pulsante" type="submit">Invia la richiesta</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import '../../scripts/validazione';
+
+  // Precompila il campo nascosto da /invito?incontro=<slug>, solo con slug noti.
+  const modulo = document.querySelector<HTMLFormElement>('form[name="invito"]');
+  const slug = new URLSearchParams(location.search).get('incontro');
+  if (modulo && slug) {
+    const validi: string[] = JSON.parse(modulo.dataset.incontri ?? '[]');
+    const campo = modulo.querySelector<HTMLInputElement>('input[name="incontro"]');
+    if (campo && validi.includes(slug)) campo.value = slug;
+  }
+</script>
+
+<style>
+  .richiesta { padding-top: 0; }
+  .gruppo {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    gap: var(--s-2);
+  }
+  .gruppo legend { padding: 0; margin-bottom: var(--s-2); }
+  .gruppo .campo--casella { display: grid; }
+  .gruppo label { font-weight: 400; }
+  .caselle { display: grid; gap: var(--s-2); }
+</style>

@@ -20,6 +20,9 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Moduli: componenti in `src/components/moduli/` (campo, scelta, casella privacy, campo esca), elenchi e messaggi d'errore in `src/lib/moduli.ts`, validazione in `src/scripts/validazione.ts`. Gli errori compaiono accanto al campo e il focus va al primo errore; senza JavaScript resta la validazione del browser
 - La Nota (`/nota`): modulo Netlify `nota` (email, nome, ruolo, privacy, campo esca), archivio «Numeri usciti» con stato vuoto, pagina del singolo numero (`/nota/[id]`) pronta per quando ci saranno numeri; conferma `/nota/iscritto` con `noindex`
 - Promotori (`/promotori`): testi, link al sito dello studio (in nuova scheda quando l'URL sarà definito), relatori solo se esistono schede in `persone`; in sviluppo un avviso ricorda che il testo va approvato dal promotore (`src/components/AvvisoSviluppo.astro`)
+- Richiedi un invito (`/invito`): modulo Netlify `invito` con tutti i campi di `testi.md`, testo d'aiuto sotto il messaggio, campo nascosto `incontro` precompilato da `?incontro=<slug>` solo se lo slug è di un incontro pubblicato (valori sconosciuti ignorati); conferma `/invito/ricevuto` con `noindex`
+- Privacy (`/privacy`): bozza strutturata con le sezioni di `testi.md`, segnaposto per titolare, basi giuridiche, conservazione, destinatari, diritti e contatti; in sviluppo l'avviso «Bozza: testo da completare…»
+- 404: fondo portone, pulsante d'invito, link alla home e un frammento fermo della pianta (solo il cortile)
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -31,8 +34,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 - [x] Incontri: elenco, pagina singola, stato vuoto, incontro di esempio in bozza
 - [x] La Nota: iscrizione, conferma, archivio vuoto
 - [x] Promotori
-- [ ] Richiedi un invito: modulo Netlify, validazione, precompilazione da `?incontro=`, conferma
-- [ ] Privacy (struttura con segnaposto) e 404
+- [x] Richiedi un invito: modulo Netlify, validazione, precompilazione da `?incontro=`, conferma
+- [x] Privacy (struttura con segnaposto) e 404
 - [ ] Controllo finale: mobile reale, tastiera, contrasti, `npm run build`
 
 ## Bloccanti per la pubblicazione (non per lo sviluppo)
@@ -45,6 +48,8 @@ Ultimo aggiornamento: 29 ottobre 2026
 
 ## Segnaposto aperti
 - `src/config/sito.ts`: URL del sito; email del circolo; sede (usata in `/incontri`); formato e sede degli incontri con ospite; partecipazione gratuita oppure con quota associativa (usata in `/circolo`); denominazione legale e codice fiscale dell'associazione; tempi di risposta (numero di giorni lavorativi); nome dello studio; URL dello studio
+- `src/pages/privacy.astro`: titolare del trattamento; basi giuridiche; tempi di conservazione; fornitore di hosting e moduli, sede e garanzie per eventuali trasferimenti; testo della sezione sui diritti; contatti per la privacy
+- `src/pages/invito/ricevuto.astro`: usa `tempiRisposta` da `sito.ts`
 - `src/content/incontri/esempio-morosita.md`: data (assente), ora, luogo (solo bozza di sviluppo)
 - `src/lib/incontri.ts` e `src/components/MetadatiIncontro.astro`: testo di ripiego `[DA DEFINIRE: data/ora/luogo/posti]` mostrato quando un incontro in bozza non ha questi dati
 
@@ -59,14 +64,15 @@ Ultimo aggiornamento: 29 ottobre 2026
 - I campi facoltativi sono segnati con «(facoltativo)» nell'etichetta; i menu a scelta partono da una riga vuota.
 - L'archivio mostra per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con un link «La Nota».
 - Il campo esca, invisibile, ha l'etichetta «Non compilare questo campo», letta solo dai bot.
+- Privacy: `testi.md` non dà un H1; ho usato «Privacy», come nel footer. La sezione sui diritti riporta la dicitura di `testi.md` seguita da un segnaposto per il testo.
+- 404: `testi.md` elenca «Home; Richiedi un invito». Ho messo prima il pulsante d'invito, che è l'azione principale, e poi il link alla home.
 
 ## Note tecniche
 - I moduli Netlify non inviano dati in locale: si provano dopo il primo deploy.
 - `site` in `astro.config.mjs` va impostato quando il dominio è definito.
 - La build segnala che le collections `note` e `persone` sono vuote: è previsto.
-- Invito e Privacy non esistono ancora: i loro link danno 404.
 - Netlify riconosce i moduli dall'HTML generato (`data-netlify`, `form-name` nascosto); l'invio vero si prova dopo il primo deploy.
 - Nella pagina di un incontro concluso il link alla Nota dice «La Nota»: `testi.md` chiede solo «un link alla Nota».
 
 ## Prossimo passo
-Richiedi un invito (modulo Netlify con i componenti già pronti, precompilazione da `?incontro=`, conferma `/invito/ricevuto`), poi Privacy e 404.
+Controllo finale della v1: prova su un telefono vero, giro completo con la tastiera, verifica dei contrasti (anche del filetto e dei bordi dei campi), `npm run build`. Poi decidere i punti in «Scelte da confermare» e preparare il deploy su Netlify (account, repository GitHub).

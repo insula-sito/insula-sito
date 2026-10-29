@@ -3,6 +3,13 @@
 // Isolato con cortile porticato e pozzo, botteghe sul fronte strada,
 // androne d'ingresso, due vani scala, appartamenti intorno al cortile.
 // Coordinate in unità del viewBox (360 × 450); la strada corre in basso.
+// `frammento`: solo il cortile, senza animazione (pagina 404).
+
+interface Props {
+  frammento?: boolean;
+}
+
+const { frammento = false } = Astro.props;
 
 const gradini = (x0: number, x1: number) =>
   [380, 388, 396, 404, 412, 420].map((y) => `M${x0} ${y} H${x1}`).join(' ');
@@ -55,8 +62,13 @@ const tratti = [
 ];
 ---
 
-<svg class="pianta" viewBox="0 0 360 450" aria-hidden="true" focusable="false">
-  <path class="pianta__strada" d="M0 442 H360" pathLength="1" />
+<svg
+  class:list={['pianta', frammento && 'pianta--frammento']}
+  viewBox={frammento ? '96 136 168 168' : '0 0 360 450'}
+  aria-hidden="true"
+  focusable="false"
+>
+  {!frammento && <path class="pianta__strada" d="M0 442 H360" pathLength="1" />}
   {tratti.map((gruppo) => (
     <g style={`--ritardo: ${gruppo.ritardo}s`}>
       {gruppo.linee.map((d) => <path d={d} pathLength="1" />)}
@@ -81,6 +93,10 @@ const tratti = [
     animation: traccia 1.2s cubic-bezier(0.4, 0, 0.2, 1) var(--ritardo, 0s) forwards;
   }
   .pianta__strada { opacity: 0.45; }
+  .pianta--frammento path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 
   @keyframes traccia {
     to { stroke-dashoffset: 0; }

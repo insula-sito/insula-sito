@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import AvvisoSviluppo from '../components/AvvisoSviluppo.astro';
+
+// Bozza strutturata: basi giuridiche e tempi di conservazione non vanno redatti qui (docs/testi.md).
+const sezioni = [
+  { titolo: 'Titolare del trattamento', testo: '[DA DEFINIRE: titolare del trattamento]' },
+  {
+    titolo: 'Dati raccolti',
+    testo: "Quelli inseriti nei moduli di richiesta di invito e di iscrizione alla Nota.",
+  },
+  {
+    titolo: 'Finalità',
+    testo: 'Organizzare gli incontri e rispondere alle richieste; inviare la Nota a chi la richiede.',
+  },
+  { titolo: 'Basi giuridiche', testo: '[DA DEFINIRE: basi giuridiche]' },
+  { titolo: 'Conservazione', testo: '[DA DEFINIRE: tempi di conservazione]' },
+  {
+    titolo: 'Destinatari',
+    testo: '[DA DEFINIRE: fornitore di hosting e moduli, sede e garanzie per eventuali trasferimenti]',
+  },
+  {
+    titolo: "Diritti dell'interessato",
+    testo:
+      "Artt. 15–22 GDPR e reclamo al Garante per la protezione dei dati personali. [DA DEFINIRE: testo della sezione]",
+  },
+  { titolo: 'Contatti', testo: '[DA DEFINIRE: contatti per la privacy]' },
+  {
+    titolo: 'Cookie',
+    testo: 'Il sito non usa cookie di profilazione né strumenti di tracciamento di terze parti.',
+  },
+];
+---
+
+<Base titolo="Privacy">
+  <AvvisoSviluppo>Bozza: testo da completare e verificare prima della pubblicazione.</AvvisoSviluppo>
+
+  <section class="intestazione" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Privacy</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione informativa" aria-label="Informativa">
+    <div class="contenitore griglia">
+      <div class="col-principale prosa">
+        {sezioni.map((s) => (
+          <>
+            <h2>{s.titolo}</h2>
+            <p>{s.testo}</p>
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .informativa { padding-top: 0; }
+  .prosa h2 { font-size: var(--t-24); font-weight: 400; margin-top: var(--s-4); }
+</style>

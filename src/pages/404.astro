@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Pianta from '../components/Pianta.astro';
+---
+
+<Base titolo="Pagina non trovata" noindex>
+  <section class="fondo-portone non-trovata" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Pagina non trovata.</h1>
+        <p>
+          L'indirizzo potrebbe essere cambiato. Da qui puoi tornare alla home o richiedere un invito.
+        </p>
+        <div class="azioni">
+          <a class="pulsante" href="/invito">Richiedi un invito</a>
+          <a class="link-interfaccia" href="/">Home</a>
+        </div>
+      </div>
+      <div class="frammento">
+        <Pianta frammento />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .non-trovata { padding-block: var(--sezione); }
+  .non-trovata p { margin-top: var(--s-4); }
+  .non-trovata .azioni { margin-top: var(--s-5); }
+  .frammento { width: min(100%, 10rem); }
+  @media (min-width: 60em) {
+    .griglia { align-items: center; }
+    .frammento { grid-column: 10 / span 3; justify-self: end; width: 100%; max-width: 12rem; }
+  }
+</style>

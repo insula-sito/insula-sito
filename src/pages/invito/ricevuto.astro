@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { sito } from '../../config/sito';
+---
+
+<Base titolo="Richiesta ricevuta" noindex>
+  <section class="intestazione conferma" aria-labelledby="titolo-pagina">
+    <div class="contenitore griglia">
+      <div class="col-principale">
+        <h1 id="titolo-pagina">Richiesta ricevuta.</h1>
+        <p>La valutiamo e ti rispondiamo entro {sito.tempiRisposta} giorni lavorativi.</p>
+        <p class="ritorno"><a class="link-interfaccia" href="/">Torna alla home</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .conferma { padding-bottom: var(--sezione); }
+  .ritorno { margin-top: var(--s-4); }
+</style>
