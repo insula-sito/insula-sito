@@ -46,6 +46,11 @@ Ultimo aggiornamento: 2 novembre 2026
   - intestazioni di sicurezza (Content-Security-Policy solo sullo stesso dominio, nosniff, referrer, permessi) e `X-Robots-Tag: noindex, nofollow` finché il sito non è pronto per il lancio;
   - cache lunga per `/_astro/*`;
   - la CSP è stata provata in locale su tutte le pagine: stili, font e validazione dei moduli funzionano, nessun blocco
+- Primo deploy su Netlify (2 novembre): https://stellar-pavlova-f54de8.netlify.app/, collegato a GitHub (ogni push su `main` ripubblica). Verificato sul sito pubblicato:
+  - tutte le pagine rispondono 200, la 404 è quella del sito e la bozza di esempio non è pubblicata;
+  - intestazioni di sicurezza e `noindex` presenti, cache lunga su `/_astro/*`;
+  - moduli `invito` e `nota` rilevati da Netlify (attributi `data-netlify` rimossi in fase di elaborazione);
+  - axe su tutte le pagine, desktop e iPhone 14: zero violazioni
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -98,7 +103,8 @@ Ultimo aggiornamento: 2 novembre 2026
 
 - Al lancio: togliere `X-Robots-Tag` da `netlify.toml` e impostare `site` in `astro.config.mjs`.
 - Su Netlify il rilevamento dei moduli va attivato a mano (Forms, Enable form detection) prima del deploy che deve registrarli.
-- Nelle anteprime di deploy di Netlify la CSP può bloccare la barra degli strumenti di Netlify: non tocca il sito pubblicato.
+- Netlify inserisce nelle pagine un proprio script (`/.netlify/scripts/hud`, con un iframe `#nl-badge-frame` invisibile). La CSP ne blocca la parte inline e in console compare un errore. Non tocca il sito, ma va disattivato dalle impostazioni del progetto se l'opzione è disponibile.
+- La protezione «Visitor access» del progetto è stata messa su «Public» il 2 novembre. Il sito non è indicizzato (`noindex`), ma chi ha l'indirizzo lo vede.
 
 ## Prossimo passo
-Creare il sito su Netlify dal repository GitHub, attivare il rilevamento dei moduli e fare il primo deploy; poi provare i moduli e il sito su un telefono vero. Prima di raccogliere richieste reali vanno risolti i bloccanti (titolare del trattamento, informativa privacy).
+Provare i moduli (solo con dati propri) e il sito su un telefono vero; poi sostituire segnaposto e testi man mano che arrivano i dati. Prima di raccogliere richieste reali vanno risolti i bloccanti (titolare del trattamento, informativa privacy).
