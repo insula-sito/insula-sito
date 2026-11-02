@@ -25,5 +25,5 @@ export const questioni = [
 export const messaggi = {
   obbligatorio: 'Questo campo è obbligatorio.',
   email: 'Inserisci un indirizzo email valido, per esempio nome@dominio.it.',
-  privacy: "Per inviare la richiesta conferma di aver letto l'informativa.",
+  privacy: "Per inviare la richiesta conferma di aver letto l’informativa.",
 };

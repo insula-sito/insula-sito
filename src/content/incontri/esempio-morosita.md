@@ -1,6 +1,6 @@
 ---
 # Incontro di esempio, solo per lo sviluppo: non va pubblicato.
-titolo: "Un conduttore smette di pagare: quanto costa davvero riavere l'immobile a Roma?"
+titolo: "Un conduttore smette di pagare: quanto costa davvero riavere l’immobile a Roma?"
 formato: tavolo
 ora: "[DA DEFINIRE: ora]"
 luogo: "[DA DEFINIRE: luogo]"

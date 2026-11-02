@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Ultimo aggiornamento: 29 ottobre 2026
+Ultimo aggiornamento: 2 novembre 2026
 
 ## Fatto
 - Decisioni di strategia, architettura e design: `docs/brief.md`
@@ -27,6 +27,15 @@ Ultimo aggiornamento: 29 ottobre 2026
 - Decisioni del 29 ottobre: H1 della privacy «Informativa privacy» (nel footer resta «Privacy»); nella 404 prima il pulsante d'invito, poi la home
 - Verifica automatica di accessibilità (29 ottobre), con axe-core 4.13.0 via Playwright e Chrome, regole WCAG 2.0/2.1/2.2 A e AA più le buone pratiche: tutte le pagine di produzione, desktop 1440px e iPhone 14, i moduli anche con gli errori visibili; in sviluppo anche la pagina dell'incontro in bozza. Zero violazioni. Contrasto non testuale misurato a parte: bordi dei campi 5,0:1, focus minimo 5,0:1 (ottone su portone), caselle spuntate 10,4:1. Giro con Tab su home, invito e 404: tutti gli elementi raggiunti hanno il contorno di focus
 - Screenshot di controllo della home con Playwright (desktop a 1440px, iPhone 14 a densità 2) in `screenshot/`, esclusa da git
+- Revisione della home dagli screenshot (2 novembre):
+  - titolo dell'apertura su tre righe da 1280px (56px, colonna di 8/12; si va a capo solo tra i tre gruppi di parole); sotto, a capo naturale con `text-wrap: balance`;
+  - apostrofi tipografici (’) in tutti i testi visibili, nei contenuti e in `docs/testi.md`;
+  - filetti tolti da «Tre modi di partecipare» e «Per chi è»; restano solo tra le domande di «Le questioni»;
+  - su desktop «Le questioni» su due colonne, «Prossimo incontro» e «Chi promuove il circolo» affiancate, nota a margine di «Per chi è» all'altezza del titolo;
+  - stato vuoto del prossimo incontro senza pulsante (aggiornato `docs/testi.md`);
+  - pianta con muri perimetrali a doppio spessore e pilastri pieni; su desktop è alta quanto il blocco di testo accanto;
+  - link del promotore «Il promotore e i relatori» (aggiornato `docs/testi.md`);
+  - verifica axe ripetuta su home, invito, Nota, privacy e 404: zero violazioni
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -63,7 +72,9 @@ Ultimo aggiornamento: 29 ottobre 2026
 
 ## Scelte da confermare
 - Il link «Vai al contenuto», visibile solo con la tastiera, è un testo aggiunto per l'accessibilità.
-- Su desktop il titolo dell'apertura va su cinque righe (64px, colonna di 7/12) e non su tre come nel wireframe. Per arrivare a tre righe servirebbe un corpo più piccolo (44px) oppure una colonna più larga.
+- Da 1280px il titolo dell'apertura usa un corpo di 56px (token `--t-apertura`), fuori dalla scala del brief: a 64px la riga più lunga non sta nella colonna accanto alla pianta.
+- Tra 960 e 1280px il titolo dell'apertura va su cinque righe (circa 64px, colonna di 7/12).
+- Con le due colonne affiancate, i metadati del prossimo incontro stanno sotto la sintesi e non a margine.
 - Nel modulo della Nota il messaggio per la privacy non confermata è quello di `testi.md` per l'invito («Per inviare la richiesta…»): `testi.md` non ne prevede uno per la Nota.
 - I campi facoltativi sono segnati con «(facoltativo)» nell'etichetta; i menu a scelta partono da una riga vuota.
 - L'archivio mostra per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con un link «La Nota».

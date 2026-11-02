@@ -11,7 +11,7 @@ export const sito = {
   sede: '[DA DEFINIRE: sede]',
   formatoSedeOspite: '[DA DEFINIRE: formato e sede]',
   partecipazione: '[DA DEFINIRE: gratuita oppure con quota associativa]',
-  datiLegali: "[DA DEFINIRE: denominazione legale e codice fiscale dell'associazione]",
+  datiLegali: "[DA DEFINIRE: denominazione legale e codice fiscale dell’associazione]",
   tempiRisposta: '[DA DEFINIRE: numero]',
   studio: {
     nome: '[DA DEFINIRE: nome dello studio]',

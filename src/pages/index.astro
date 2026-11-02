@@ -16,12 +16,12 @@ const modi = [
   {
     titolo: 'La Nota',
     testo:
-      "Una volta al mese: una questione, l'analisi essenziale, un dato da tenere a mente. Si legge in cinque minuti.",
+      "Una volta al mese: una questione, l’analisi essenziale, un dato da tenere a mente. Si legge in cinque minuti.",
   },
   {
     titolo: 'Incontri con ospite',
     testo:
-      "Due volte l'anno, una conversazione con chi osserva il mercato immobiliare romano da un punto di vista diverso dal nostro.",
+      "Due volte l’anno, una conversazione con chi osserva il mercato immobiliare romano da un punto di vista diverso dal nostro.",
   },
 ];
 
@@ -45,14 +45,14 @@ const pubblico = [
 const questioni = [
   {
     caso: 'Un conduttore smette di pagare.',
-    domanda: "Quanto costa davvero, a Roma, riavere l'immobile? E cosa si poteva decidere prima?",
+    domanda: "Quanto costa davvero, a Roma, riavere l’immobile? E cosa si poteva decidere prima?",
   },
   {
     caso: 'Un conduttore commerciale è in difficoltà.',
     domanda: 'Conviene rinegoziare, resistere o liberare?',
   },
   {
-    caso: "Un immobile va all'asta.",
+    caso: "Un immobile va all’asta.",
     domanda: 'Dove sta lo sconto, e cosa si compra insieme alle mura?',
   },
   {
@@ -61,7 +61,7 @@ const questioni = [
   },
   {
     caso: 'Il condominio.',
-    domanda: "Quali debiti e quali delibere seguono l'immobile, e quanto pesano sul suo valore?",
+    domanda: "Quali debiti e quali delibere seguono l’immobile, e quanto pesano sul suo valore?",
   },
   {
     caso: 'Le regole della rendita.',
@@ -75,7 +75,9 @@ const questioni = [
     <div class="contenitore griglia apertura__griglia">
       <div class="apertura__testo">
         <h1 id="titolo-apertura">
-          Il rendimento di un immobile si decide anche in tribunale, in condominio e tra gli eredi.
+          <span class="riga">Il rendimento di un immobile</span>{' '}
+          <span class="riga">si decide anche in tribunale,</span>{' '}
+          <span class="riga">in condominio e tra gli eredi.</span>
         </h1>
         <p class="apertura__sottotitolo">
           {sito.nome} è un circolo romano per chi possiede o consiglia patrimoni immobiliari a reddito.
@@ -120,7 +122,7 @@ const questioni = [
           ))}
         </ul>
       </div>
-      <p class="col-margine margine margine--basso">
+      <p class="col-margine margine pubblico__margine">
         La partecipazione ai tavoli è su invito. Valutiamo ogni richiesta in base al ruolo e alle
         questioni di interesse.
       </p>
@@ -135,53 +137,44 @@ const questioni = [
           Domande con conseguenze economiche concrete, che di solito si affrontano quando sono già
           diventate urgenti.
         </p>
-        <ul class="questioni">
-          {questioni.map((q) => (
-            <li>
-              <p><strong>{q.caso}</strong> {q.domanda}</p>
-            </li>
-          ))}
-        </ul>
       </div>
+      <ul class="col-larga questioni">
+        {questioni.map((q) => (
+          <li>
+            <p><strong>{q.caso}</strong> {q.domanda}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="sezione" aria-labelledby="titolo-prossimo">
-    <div class="contenitore griglia">
-      <h2 id="titolo-prossimo" class="col-principale">Prossimo incontro</h2>
-      {prossimo ? (
-        <>
-          <div class="col-principale incontro">
+  <div class="sezione affiancate">
+    <div class="contenitore griglia affiancate__griglia">
+      <section class="prossimo" aria-labelledby="titolo-prossimo">
+        <h2 id="titolo-prossimo">Prossimo incontro</h2>
+        {prossimo ? (
+          <div class="incontro">
             {prossimo.data.stato === 'bozza' && <p class="etichetta-bozza">Bozza</p>}
             <h3>
               <a href={`/incontri/${prossimo.id}`}>{prossimo.data.titolo}</a>
             </h3>
             <p>{prossimo.data.sintesi}</p>
+            <MetadatiIncontro incontro={prossimo} />
             <div class="azioni">
               <a class="pulsante" href={`/invito?incontro=${encodeURIComponent(prossimo.id)}`}>
                 Richiedi un invito a questo tavolo
               </a>
             </div>
           </div>
-          <MetadatiIncontro incontro={prossimo} class="col-margine incontro__margine" />
-        </>
-      ) : (
-        <div class="col-principale incontro">
+        ) : (
           <p>
             Il calendario dei primi tavoli è in preparazione. Chi richiede un invito ora riceve le date
             prima della pubblicazione.
           </p>
-          <div class="azioni">
-            <a class="pulsante" href="/invito">Richiedi un invito</a>
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
+        )}
+      </section>
 
-  <section class="sezione promotore" aria-labelledby="titolo-promotore">
-    <div class="contenitore griglia">
-      <div class="col-principale">
+      <section class="promotore" aria-labelledby="titolo-promotore">
         <h2 id="titolo-promotore">Chi promuove il circolo</h2>
         <p>
           {sito.nome} è promossa da {sito.studio.nome}, studio legale romano che si occupa di diritto
@@ -189,18 +182,18 @@ const questioni = [
           ai tavoli come relatori, accanto a professionisti esterni.
         </p>
         <p class="promotore__link">
-          <a class="link-interfaccia" href="/promotori">Promotori</a>
+          <a class="link-interfaccia" href="/promotori">Il promotore e i relatori</a>
         </p>
-      </div>
+      </section>
     </div>
-  </section>
+  </div>
 
   <section class="sezione fondo-portone chiusura" aria-labelledby="titolo-chiusura">
     <div class="contenitore griglia">
       <div class="col-principale">
         <h2 id="titolo-chiusura">Partecipare</h2>
         <p>
-          Indica il tuo ruolo e le questioni che ti interessano. Ti scriviamo quando c'è un tavolo
+          Indica il tuo ruolo e le questioni che ti interessano. Ti scriviamo quando c’è un tavolo
           pertinente.
         </p>
         <div class="azioni">
@@ -225,27 +218,35 @@ const questioni = [
     justify-self: start;
   }
   @media (min-width: 60em) {
-    .apertura__testo { grid-column: 1 / span 7; }
+    .apertura__griglia { align-items: stretch; }
+    .apertura__testo { grid-column: 1 / span 7; align-self: center; }
+    /* La pianta prende l’altezza del blocco di testo, nei limiti della sua colonna. */
     .apertura__pianta {
       grid-column: 9 / span 4;
-      justify-self: end;
+      position: relative;
       width: 100%;
-      max-width: 23rem;
+    }
+    .apertura__pianta :global(.pianta) {
+      position: absolute;
+      inset: 0;
+      height: 100%;
     }
   }
+  /* Da 1280px il titolo sta su tre righe: si va a capo solo tra un gruppo e l’altro. */
+  @media (min-width: 80em) {
+    .apertura__testo { grid-column: 1 / span 8; }
+    .apertura h1 { font-size: var(--t-apertura); }
+    .riga { white-space: nowrap; }
+  }
 
-  /* Sezioni su calce */
+  /* Sezioni su calce: gli elementi si separano con lo spazio */
   h2 { margin-bottom: var(--s-1); }
   .introduzione { margin-top: var(--s-3); }
 
   .modi__elenco {
     display: grid;
-    gap: var(--s-4) var(--colonna-gap);
-  }
-  .modi__elenco li,
-  .voci li {
-    border-top: var(--filetto);
-    padding-top: var(--s-3);
+    gap: var(--s-5) var(--colonna-gap);
+    margin-top: var(--s-2);
   }
   .modi__elenco h3,
   .voci h3 { margin-bottom: var(--s-1); }
@@ -254,27 +255,38 @@ const questioni = [
   }
 
   .voci { margin-top: var(--s-5); }
-  .voci li + li { margin-top: var(--s-4); }
+  .voci li + li { margin-top: var(--s-5); }
+  .pubblico__margine { border-top: 0; padding-top: 0; }
   @media (min-width: 60em) {
-    .margine--basso { align-self: end; }
+    .pubblico__margine { align-self: start; padding-top: 0.6em; }
   }
 
-  .questioni { margin-top: var(--s-5); }
-  .questioni li {
-    border-top: var(--filetto);
-    padding-block: var(--s-3);
-  }
-  .questioni li:last-child { border-bottom: var(--filetto); }
+  /* Le questioni: filetti solo tra una domanda e l’altra */
+  .questioni { display: grid; column-gap: var(--s-6); }
+  .questioni li { padding-block: var(--s-3); }
+  .questioni li:first-child { padding-top: 0; }
+  .questioni li + li { border-top: var(--filetto); }
   .questioni strong { color: var(--portone); }
+  @media (min-width: 60em) {
+    .questioni {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: column;
+      grid-template-rows: repeat(3, auto);
+    }
+    .questioni li + li:nth-child(4) { padding-top: 0; border-top: 0; }
+  }
 
+  /* Prossimo incontro e promotore: affiancati su desktop */
+  .affiancate__griglia { row-gap: var(--sezione); }
+  @media (min-width: 60em) {
+    .prossimo { grid-column: 1 / span 5; }
+    .promotore { grid-column: 7 / span 5; }
+  }
+  .affiancate h2 { margin-bottom: var(--s-3); }
   .incontro > * + * { margin-top: var(--s-3); }
   .incontro .azioni { margin-top: var(--s-4); }
   .incontro h3 a { text-decoration-thickness: 1px; }
-  @media (min-width: 60em) {
-    .incontro__margine { grid-row: 2; }
-  }
-
-  .promotore h2 { margin-bottom: var(--s-3); }
+  .incontro :global(.margine) { border-top: 0; padding-top: 0; margin-top: var(--s-3); }
   .promotore__link { margin-top: var(--s-3); }
 
   .chiusura .azioni { margin-top: var(--s-4); }
