@@ -40,6 +40,12 @@ Ultimo aggiornamento: 2 novembre 2026
   - `--t-apertura` a 56px confermato come unica eccezione alla scala, registrato in `docs/brief.md` (Tipografia);
   - tra 960 e 1280px il titolo dell'apertura è fluido tra 44 e 56px (`--t-apertura-fluido`) in una colonna di 8/12: misurato su tre righe da 960 a 1280px, con screenshot a 1024 e 1152px;
   - in home i metadati del prossimo incontro stanno subito sotto il titolo dell'incontro, prima della sintesi; nella pagina del singolo incontro restano a margine
+- Repository remoto su GitHub: `origin` = https://github.com/insula-sito/insula-sito.git, branch `main` (2 novembre)
+- `netlify.toml` (2 novembre):
+  - build `npm run build`, cartella pubblicata `dist`, Node 24;
+  - intestazioni di sicurezza (Content-Security-Policy solo sullo stesso dominio, nosniff, referrer, permessi) e `X-Robots-Tag: noindex, nofollow` finché il sito non è pronto per il lancio;
+  - cache lunga per `/_astro/*`;
+  - la CSP è stata provata in locale su tutte le pagine: stili, font e validazione dei moduli funzionano, nessun blocco
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -90,5 +96,9 @@ Ultimo aggiornamento: 2 novembre 2026
 - Netlify riconosce i moduli dall'HTML generato (`data-netlify`, `form-name` nascosto); l'invio vero si prova dopo il primo deploy.
 - La casella non spuntata usa il bordo nativo del browser: in Chrome è circa 3,9:1 su calce (sopra il 3:1 richiesto). Su Safari e Firefox reali va guardata dopo il deploy.
 
+- Al lancio: togliere `X-Robots-Tag` da `netlify.toml` e impostare `site` in `astro.config.mjs`.
+- Su Netlify il rilevamento dei moduli va attivato a mano (Forms, Enable form detection) prima del deploy che deve registrarli.
+- Nelle anteprime di deploy di Netlify la CSP può bloccare la barra degli strumenti di Netlify: non tocca il sito pubblicato.
+
 ## Prossimo passo
-Decidere i punti rimasti in «Scelte da confermare», poi preparare il deploy su Netlify (account, repository GitHub) e, dopo il deploy, provare i moduli e il sito su un telefono vero.
+Creare il sito su Netlify dal repository GitHub, attivare il rilevamento dei moduli e fare il primo deploy; poi provare i moduli e il sito su un telefono vero. Prima di raccogliere richieste reali vanno risolti i bloccanti (titolare del trattamento, informativa privacy).
