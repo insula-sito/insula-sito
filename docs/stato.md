@@ -89,10 +89,9 @@ Ultimo aggiornamento: 2 novembre 2026
 Nessuna aperta. Le ultime sette sono state confermate il 2 novembre e registrate in `docs/testi.md`, «Testi di servizio».
 
 ## Note tecniche
-- I moduli Netlify non inviano dati in locale: si provano dopo il primo deploy.
+- I moduli Netlify non inviano dati in locale. Sul sito pubblicato sono stati provati il 2 novembre e funzionano; le richieste si leggono nella sezione Forms di Netlify, che non manda email se non si configura una notifica (Forms, Form notifications).
 - `site` in `astro.config.mjs` va impostato quando il dominio è definito.
 - La build segnala che le collections `note` e `persone` sono vuote: è previsto.
-- Netlify riconosce i moduli dall'HTML generato (`data-netlify`, `form-name` nascosto); l'invio vero si prova dopo il primo deploy.
 - La casella non spuntata usa il bordo nativo del browser: in Chrome è circa 3,9:1 su calce (sopra il 3:1 richiesto). Su Safari e Firefox reali va guardata dopo il deploy.
 
 - Al lancio: togliere `X-Robots-Tag` da `netlify.toml` e impostare `site` in `astro.config.mjs`.
