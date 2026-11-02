@@ -241,3 +241,13 @@ Sezioni:
 Titolo: Pagina non trovata.
 Testo: L’indirizzo potrebbe essere cambiato. Da qui puoi tornare alla home o richiedere un invito.
 Link: Home; Richiedi un invito
+
+## Testi di servizio (confermati il 2 novembre 2026)
+
+- Link per saltare la navigazione, visibile solo con la tastiera: Vai al contenuto
+- Modulo della Nota, privacy non confermata: stesso messaggio del modulo di invito («Per inviare la richiesta conferma di aver letto l’informativa.»)
+- Campi facoltativi: «(facoltativo)» dopo l’etichetta; i menu a scelta partono da una riga vuota.
+- Archivio della Nota: per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con il link «La Nota».
+- Campo anti-spam invisibile (letto solo dai bot): Non compilare questo campo
+- Privacy, sezione sui diritti: la dicitura qui sopra, seguita dal testo della sezione quando sarà definito.
+- Pagina di un incontro concluso: il link alla Nota dice «La Nota».

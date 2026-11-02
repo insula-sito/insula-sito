@@ -86,13 +86,7 @@ Ultimo aggiornamento: 2 novembre 2026
 - Home, «Le questioni»: «Un immobile va all'asta. Dove sta lo sconto, e cosa si compra insieme alle mura?» parla di acquisto in asta. Il vincolo deontologico riguarda le attività dello studio, ma conviene far confermare il testo.
 
 ## Scelte da confermare
-- Il link «Vai al contenuto», visibile solo con la tastiera, è un testo aggiunto per l'accessibilità.
-- Nel modulo della Nota il messaggio per la privacy non confermata è quello di `testi.md` per l'invito («Per inviare la richiesta…»): `testi.md` non ne prevede uno per la Nota.
-- I campi facoltativi sono segnati con «(facoltativo)» nell'etichetta; i menu a scelta partono da una riga vuota.
-- L'archivio mostra per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con un link «La Nota».
-- Il campo esca, invisibile, ha l'etichetta «Non compilare questo campo», letta solo dai bot.
-- Privacy: la sezione sui diritti riporta la dicitura di `testi.md` seguita da un segnaposto per il testo.
-- Nella pagina di un incontro concluso il link alla Nota dice «La Nota»: `testi.md` chiede solo «un link alla Nota».
+Nessuna aperta. Le ultime sette sono state confermate il 2 novembre e registrate in `docs/testi.md`, «Testi di servizio».
 
 ## Note tecniche
 - I moduli Netlify non inviano dati in locale: si provano dopo il primo deploy.
