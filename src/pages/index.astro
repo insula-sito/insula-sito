@@ -158,8 +158,8 @@ const questioni = [
             <h3>
               <a href={`/incontri/${prossimo.id}`}>{prossimo.data.titolo}</a>
             </h3>
-            <p>{prossimo.data.sintesi}</p>
             <MetadatiIncontro incontro={prossimo} />
+            <p>{prossimo.data.sintesi}</p>
             <div class="azioni">
               <a class="pulsante" href={`/invito?incontro=${encodeURIComponent(prossimo.id)}`}>
                 Richiedi un invito a questo tavolo
@@ -219,7 +219,8 @@ const questioni = [
   }
   @media (min-width: 60em) {
     .apertura__griglia { align-items: stretch; }
-    .apertura__testo { grid-column: 1 / span 7; align-self: center; }
+    .apertura__testo { grid-column: 1 / span 8; align-self: center; }
+    .apertura h1 { font-size: var(--t-apertura-fluido); }
     /* La pianta prende l’altezza del blocco di testo, nei limiti della sua colonna. */
     .apertura__pianta {
       grid-column: 9 / span 4;
@@ -234,7 +235,6 @@ const questioni = [
   }
   /* Da 1280px il titolo sta su tre righe: si va a capo solo tra un gruppo e l’altro. */
   @media (min-width: 80em) {
-    .apertura__testo { grid-column: 1 / span 8; }
     .apertura h1 { font-size: var(--t-apertura); }
     .riga { white-space: nowrap; }
   }
@@ -287,6 +287,7 @@ const questioni = [
   .incontro .azioni { margin-top: var(--s-4); }
   .incontro h3 a { text-decoration-thickness: 1px; }
   .incontro :global(.margine) { border-top: 0; padding-top: 0; margin-top: var(--s-3); }
+  .incontro :global(.margine) + p { margin-top: var(--s-3); }
   .promotore__link { margin-top: var(--s-3); }
 
   .chiusura .azioni { margin-top: var(--s-4); }

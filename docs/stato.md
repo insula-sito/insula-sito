@@ -36,6 +36,10 @@ Ultimo aggiornamento: 2 novembre 2026
   - pianta con muri perimetrali a doppio spessore e pilastri pieni; su desktop è alta quanto il blocco di testo accanto;
   - link del promotore «Il promotore e i relatori» (aggiornato `docs/testi.md`);
   - verifica axe ripetuta su home, invito, Nota, privacy e 404: zero violazioni
+- Decisioni del 2 novembre:
+  - `--t-apertura` a 56px confermato come unica eccezione alla scala, registrato in `docs/brief.md` (Tipografia);
+  - tra 960 e 1280px il titolo dell'apertura è fluido tra 44 e 56px (`--t-apertura-fluido`) in una colonna di 8/12: misurato su tre righe da 960 a 1280px, con screenshot a 1024 e 1152px;
+  - in home i metadati del prossimo incontro stanno subito sotto il titolo dell'incontro, prima della sintesi; nella pagina del singolo incontro restano a margine
 - Verificato nel browser: desktop a 1536px; mobile simulato con un iframe largo 390px (nessuno scorrimento orizzontale); nessun errore in console. In produzione la home mostra lo stato vuoto del prossimo incontro, in sviluppo la bozza con l'etichetta «Bozza».
 
 ## Da fare (v1)
@@ -72,9 +76,6 @@ Ultimo aggiornamento: 2 novembre 2026
 
 ## Scelte da confermare
 - Il link «Vai al contenuto», visibile solo con la tastiera, è un testo aggiunto per l'accessibilità.
-- Da 1280px il titolo dell'apertura usa un corpo di 56px (token `--t-apertura`), fuori dalla scala del brief: a 64px la riga più lunga non sta nella colonna accanto alla pianta.
-- Tra 960 e 1280px il titolo dell'apertura va su cinque righe (circa 64px, colonna di 7/12).
-- Con le due colonne affiancate, i metadati del prossimo incontro stanno sotto la sintesi e non a margine.
 - Nel modulo della Nota il messaggio per la privacy non confermata è quello di `testi.md` per l'invito («Per inviare la richiesta…»): `testi.md` non ne prevede uno per la Nota.
 - I campi facoltativi sono segnati con «(facoltativo)» nell'etichetta; i menu a scelta partono da una riga vuota.
 - L'archivio mostra per ogni numero «N. [numero], [data]»; la pagina del singolo numero chiude con un link «La Nota».

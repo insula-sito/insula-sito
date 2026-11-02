@@ -19,7 +19,10 @@
   --t-32: clamp(1.625rem, 1.3rem + 1vw, 2rem);
   --t-44: clamp(2rem, 1.5rem + 2vw, 2.75rem);
   --t-64: clamp(2.375rem, 1.6rem + 3.4vw, 4rem);
-  --t-apertura: 3.5rem; /* titolo dell’apertura da 1280px: tre righe accanto alla pianta */
+  /* Unica eccezione alla scala (brief, Tipografia): titolo dell’apertura della home.
+     56px da 1280px; tra 960 e 1280px fluido da 44 a 56px. */
+  --t-apertura: 3.5rem;
+  --t-apertura-fluido: clamp(2.75rem, 0.5rem + 3.75vw, 3.5rem);
 
   --interlinea-testo: 1.6;
   --interlinea-titoli: 1.12;

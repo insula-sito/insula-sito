@@ -95,6 +95,7 @@ Contrasti: basalto e peperino su calce superano AA; calce su portone circa 10:1;
 - **Spectral** (pesi 300, 400, 400 corsivo, 600): titoli e testo.
 - **Hanken Grotesk** (pesi 400, 500): navigazione, pulsanti, moduli, date e metadati.
 - Scala in px: 14, 16, 19, 24, 32, 44, 64. Testo corrente 19px con interlinea 1,6. Titoli in Spectral 300, interlinea 1,1–1,15, ridotti con `clamp()` su mobile.
+- Unica eccezione alla scala: il titolo dell'apertura della home (token `--t-apertura`) è di 56px da 1280px in su, per stare su tre righe accanto alla pianta. Tra 960 e 1280px è fluido tra 44 e 56px, su non più di quattro righe bilanciate.
 - Righe di testo tra 60 e 72 caratteri.
 - Maiuscole e minuscole normali ovunque. Unica eccezione: il logotipo, in maiuscoletto spaziato come una targa d'ottone.
 
